@@ -15,9 +15,9 @@ Follow the steps to deploy the Microsoft Assessment App.
 
 ## Step 1: Clone the GitHub repository.
 
-1. Go to the [repository](https://github.com/microsoft/AzureAssessmentApp) and click the “Code” button and select clone.
+1. Go to the [repository](https://github.com/microsoft/AzureLTIAssessmentApp) and click the “Code” button and select clone.
 2. Open a command prompt and go to the directory where you would like to install the Assessment App source code.
-3. Enter "git clone" and the URL you copied before. For example, “git clone https://github.com/microsoft/AzureAssessmentApp.git”
+3. Enter "git clone" and the URL you copied before. For example, “git clone https://github.com/microsoft/AzureLTIAssessmentApp.git”
 
 ## Step 2: Deploy to Azure Subscription using Deployment script.
 
