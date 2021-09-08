@@ -27,20 +27,22 @@ Complete the following steps to configure the Assessment App in Moodle:
     * **Initiate login URL:** enter "Login URL" from the Platform Registration Tool.
     * **Redirection URI(s):** enter the "Launch URL" from the Platform Registration Tool.
     * **Default launch container:** New window.
-7. Under Services, **IMS LTI Names and Role Provisioning:** select Use this service to retrieve members’ information as per privacy.
-8. Under Privacy, select the following options:
+7. Under Services:
+    * **IMS LTI Assignment and Grade Services:** select Use this service for grade sync and column management.
+    * **IMS LTI Names and Role Provisioning:** select Use this service to retrieve members’ information as per privacy.
+9. Under Privacy, select the following options:
     * Share launcher’s name with tool: **Always**
     * Share launcher’s email with tool: **Always**
     * Accept grades from the tool: **Always**
-9. Click **Save changes**. The tool should now appear and be listed with the name you provided.
-10. Click the icon on the tool that represents **View configuration details**.
-11. Take note of the following parameters:
+10. Click **Save changes**. The tool should now appear and be listed with the name you provided.
+11. Click the icon on the tool that represents **View configuration details**.
+12. Take note of the following parameters:
     * Platform ID
     * Client ID
     * Public keyset URL
     * Access token URL
     * Authentication request URL
-12. Continue to configure the Assessment App, by registering the parameters back in the Platform Registration Tool.
+13. Continue to configure the Assessment App, by registering the parameters back in the Platform Registration Tool.
 
 The following steps show how to register the parameters back in the Platform Registration Tool.
 1. Open the Platform Registration Tool in your browser.
