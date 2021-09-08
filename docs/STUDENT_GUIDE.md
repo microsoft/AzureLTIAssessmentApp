@@ -12,7 +12,7 @@ To begin, you need to login to Moodle LMS and follow the steps:
 
 ![studentassessmentapp](../images/studentAssessmentapp.jpg)
 
-3. On this page, you can see the assessment details, such as amount of questions, deadline, duration and others.
+3. On this page, you can see the assessment details, such as the number of questions, deadline, duration and others.
    Click **Start** when you are ready, and you will be redirected to the assessment.
 
 ![studentwelcome](../images/studentwelcome.jpg)
