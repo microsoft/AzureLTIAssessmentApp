@@ -1,4 +1,4 @@
-## Student Manual
+## Student Guide
 
 ### This guide is designed for students who use [Moodle LMS](https://moodle.org/).
 
