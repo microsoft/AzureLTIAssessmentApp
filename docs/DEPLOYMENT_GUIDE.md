@@ -58,7 +58,7 @@ The following regions are supported:
 
 Locate your region from the list above. Then type it into the script and hit "Enter".
 
-![image](https://user-images.githubusercontent.com/57499565/131998647-58fc17e0-fd80-4e21-9d01-d5d78fce0e51.png)
+![chooselocation](../images/location.jpg)
 
 Your region determines three things:
 
@@ -72,7 +72,7 @@ For information regarding your region, check [here](https://azure.microsoft.com/
 
 The Script will display the Tool Registration URL after completion. **Please copy the URL and keep it handy** since it will be required while configuring the tool in the LMS.
 
-![image](https://user-images.githubusercontent.com/57499565/131999123-acb9da3d-649f-4979-8a69-462a486d3f3f.png)
+![toolregistrationurl](../images/toolregistrationurl.jpg)
 
 Open the tool registration page from your browser and take note of the following parameters.
 
