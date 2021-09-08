@@ -1,0 +1,23 @@
+﻿{
+  "$schema": "http://json.schemastore.org/proxies",
+  "proxies": {
+    "SinglePageApp": {
+      "matchCondition": {
+        "route": "/spa/{*path}"
+      },
+      "backendUri": "https://%STATIC_WEB_HOST%/index.html"
+    },
+    "Login": {
+      "matchCondition": {
+        "route": "/login"
+      },
+      "backendUri": "https://%STATIC_WEB_HOST%/index.html"
+    },
+    "StaticContent": {
+      "matchCondition": {
+        "route": "/static/{*path}"
+      },
+      "backendUri": "https://%STATIC_WEB_HOST%/static/{path}"
+    }
+  }
+}

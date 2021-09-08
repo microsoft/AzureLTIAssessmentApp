@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Assessment.App.Azure\Assessment.App.Azure.csproj" />
+      <ProjectReference Include="..\Assessment.App.Database\Assessment.App.Database.csproj" />
+      <ProjectReference Include="..\Assessment.App.Utils\Assessment.App.Utils.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="IdentityModel" Version="3.10.5" />
+      <PackageReference Include="LtiAdvantage" Version="0.1.1-alpha.0" />
+      <PackageReference Include="LtiAdvantage.IdentityModel" Version="0.1.1-alpha.0" />
+      <PackageReference Include="Microsoft.Extensions.Http" Version="2.2.0" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.1" />
+    </ItemGroup>
+
+</Project>

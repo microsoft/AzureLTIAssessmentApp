@@ -1,0 +1,418 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "objectId": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "variables": {
+        "location": "[resourceGroup().location]",
+        "tenantId": "[subscription().tenantId]",
+        "uniqueIdentifier": "[substring(uniqueString(subscription().subscriptionId, resourceGroup().id),0,9)]",
+        "storageName": "[concat('storage', toLower(replace(variables('uniqueIdentifier'),'-','')))]",
+        "keyVaultName": "[concat('key-vault-', variables('uniqueIdentifier'))]",
+        "appName": "[concat('assessment-app-', variables('uniqueIdentifier'))]",
+        "serverfarmName": "[concat('serverfarm-', variables('uniqueIdentifier'))]",
+        "databaseName": "[concat('database-', variables('uniqueIdentifier'))]",
+        "mainUrl": "[concat('https://', variables('appName'), '.azurewebsites.net')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2021-04-01",
+            "name": "[variables('storageName')]",
+            "location": "[variables('location')]",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "StorageV2"
+        },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts",
+            "apiVersion": "2021-05-15",
+            "name": "[variables('databaseName')]",
+            "location": "[variables('location')]",
+            "kind": "GlobalDocumentDB",
+            "properties": {
+                "publicNetworkAccess": "Enabled",
+                "enableAutomaticFailover": false,
+                "enableMultipleWriteLocations": false,
+                "isVirtualNetworkFilterEnabled": false,
+                "virtualNetworkRules": [],
+                "disableKeyBasedMetadataWriteAccess": false,
+                "enableFreeTier": false,
+                "enableAnalyticalStorage": false,
+                "analyticalStorageConfiguration": {
+                    "schemaType": "WellDefined"
+                },
+                "databaseAccountOfferType": "Standard",
+                "defaultIdentity": "FirstPartyIdentity",
+                "networkAclBypass": "None",
+                "disableLocalAuth": false,
+                "consistencyPolicy": {
+                    "defaultConsistencyLevel": "Session",
+                    "maxIntervalInSeconds": 5,
+                    "maxStalenessPrefix": 100
+                },
+                "locations": [
+                    {
+                        "locationName": "[variables('location')]",
+                        "provisioningState": "Succeeded",
+                        "failoverPriority": 0,
+                        "isZoneRedundant": false
+                    }
+                ],
+                "cors": [],
+                "capabilities": [],
+                "ipRules": [],
+                "backupPolicy": {
+                    "type": "Periodic",
+                    "periodicModeProperties": {
+                        "backupIntervalInMinutes": 240,
+                        "backupRetentionIntervalInHours": 8
+                    }
+                },
+                "networkAclBypassResourceIds": []
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases",
+            "apiVersion": "2021-05-15",
+            "name": "[concat(variables('databaseName'), '/assessment-app-db')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts', variables('databaseName'))]"
+            ],
+            "properties": {
+                "resource": {
+                    "id": "assessment-app-db"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
+            "apiVersion": "2021-05-15",
+            "name": "[concat(variables('databaseName'), '/assessment-app-db/Assessments')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts', variables('databaseName'))]",
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', variables('databaseName'), 'assessment-app-db')]"
+            ],
+            "properties": {
+                "resource": {
+                    "id": "Assessments",
+                    "partitionKey": {
+                        "paths": [
+                            "/id"
+                        ],
+                        "kind": "Hash"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
+            "apiVersion": "2021-05-15",
+            "name": "[concat(variables('databaseName'), '/assessment-app-db/platform-registration-container')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts', variables('databaseName'))]",
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', variables('databaseName'), 'assessment-app-db')]"
+            ],
+            "properties": {
+                "resource": {
+                    "id": "platform-registration-container",
+                    "partitionKey": {
+                        "paths": [
+                            "/id"
+                        ],
+                        "kind": "Hash"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
+            "apiVersion": "2021-05-15",
+            "name": "[concat(variables('databaseName'), '/assessment-app-db/QuestionBanks')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts', variables('databaseName'))]",
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', variables('databaseName'), 'assessment-app-db')]"
+            ],
+            "properties": {
+                "resource": {
+                    "id": "QuestionBanks",
+                    "partitionKey": {
+                        "paths": [
+                            "/id"
+                        ],
+                        "kind": "Hash"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
+            "apiVersion": "2021-05-15",
+            "name": "[concat(variables('databaseName'), '/assessment-app-db/Questions')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts', variables('databaseName'))]",
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', variables('databaseName'), 'assessment-app-db')]"
+            ],
+            "properties": {
+                "resource": {
+                    "id": "Questions",
+                    "partitionKey": {
+                        "paths": [
+                            "/id"
+                        ],
+                        "kind": "Hash"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
+            "apiVersion": "2021-05-15",
+            "name": "[concat(variables('databaseName'), '/assessment-app-db/StudentResponses')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts', variables('databaseName'))]",
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', variables('databaseName'), 'assessment-app-db')]"
+            ],
+            "properties": {
+                "resource": {
+                    "id": "StudentResponses",
+                    "partitionKey": {
+                        "paths": [
+                            "/id"
+                        ],
+                        "kind": "Hash"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2020-12-01",
+            "name": "[variables('serverfarmName')]",
+            "location": "[variables('location')]",
+            "sku": {
+                "name": "Y1",
+                "tier": "Dynamic",
+                "size": "Y1",
+                "family": "Y",
+                "capacity": 0
+            },
+            "kind": "functionapp",
+            "properties": {
+                "perSiteScaling": false,
+                "elasticScaleEnabled": false,
+                "maximumElasticWorkerCount": 1,
+                "isSpot": false,
+                "reserved": false,
+                "isXenon": false,
+                "hyperV": false,
+                "targetWorkerCount": 0,
+                "targetWorkerSizeId": 0
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2020-12-01",
+            "name": "[variables('appName')]",
+            "location": "UK South",
+            "kind": "functionapp",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]",
+                "[resourceId('Microsoft.Web/serverfarms/', variables('serverfarmName'))]",
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts', variables('databaseName'))]"
+            ],
+            "identity": {
+                "type": "SystemAssigned"
+            },
+            "properties": {
+                "enabled": true,
+                "httpsOnly": true,
+                "hostNameSslStates": [
+                    {
+                        "name": "[concat(variables('appName'), '.azurewebsites.net')]",
+                        "sslState": "Disabled",
+                        "hostType": "Standard"
+                    },
+                    {
+                        "name": "[concat(variables('appName'), '.scm.azurewebsites.net')]",
+                        "sslState": "Disabled",
+                        "hostType": "Repository"
+                    }
+                ],
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "FUNCTIONS_WORKER_RUNTIME",
+                            "value": "dotnet"
+                        },
+                        {
+                            "name": "FUNCTIONS_EXTENSION_VERSION",
+                            "value": "~3"
+                        },
+                        {
+                            "name": "AzureWebJobsStorage",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';EndpointSuffix=', environment().suffixes.storage, ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2021-04-01').keys[0].value)]"
+                        },
+                        {
+                            "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';EndpointSuffix=', environment().suffixes.storage, ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2021-04-01').keys[0].value)]"
+                        },
+                        {
+                            "name": "WEBSITE_CONTENTSHARE",
+                            "value": "[toLower(variables('appName'))]"
+                        },
+                        {
+                            "name": "WEBSITE_ENABLE_SYNC_UPDATE_SITE",
+                            "value": "true"
+                        },
+                        {
+                            "name": "WEBSITE_RUN_FROM_PACKAGE",
+                            "value": "1"
+                        },
+                        {
+                            "name": "BaseApiUrl",
+                            "value": "[variables('mainUrl')]"
+                        },
+                        {
+                            "name": "RedirectUrl",
+                            "value": "[variables('mainUrl')]"
+                        },
+                        {
+                            "name": "KeyVaultUrl",
+                            "value": "[concat('https://', variables('keyVaultName'), '.vault.azure.net')]"
+                        },
+                        {
+                            "name": "STATIC_WEB_HOST",
+                            "value": "[skip(take(reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageName'))).primaryEndpoints.web, sub(length(reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageName'))).primaryEndpoints.web), 1)), length('https://'))]"
+                        }
+                    ],
+                    "connectionStrings": [
+                        {
+                            "name": "ReadPlatformData",
+                            "connectionString": "[listConnectionStrings(resourceId('Microsoft.DocumentDB/databaseAccounts', variables('databaseName')), '2021-05-15').connectionStrings[0].connectionString]"
+                        },
+                        {
+                            "name": "ReadWritePlatformData",
+                            "connectionString": "[listConnectionStrings(resourceId('Microsoft.DocumentDB/databaseAccounts', variables('databaseName')), '2021-05-15').connectionStrings[0].connectionString]"
+                        }
+                    ],
+                    "ftpsState": "Disabled",
+                    "minTlsVersion": "1.2"
+                },
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', variables('serverfarmName'))]"
+            }
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults",
+            "apiVersion": "2021-04-01-preview",
+            "name": "[variables('keyVaultName')]",
+            "location": "[variables('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', variables('appName'))]"
+            ],
+            "properties": {
+                "sku": {
+                    "family": "A",
+                    "name": "Standard"
+                },
+                "tenantId": "[variables('tenantId')]",
+                "accessPolicies": [
+                    {
+                        "tenantId": "[variables('tenantId')]",
+                        "objectId": "[parameters('objectId')]",
+                        "permissions": {
+                            "keys": [
+                                "List",
+                                "Update",
+                                "Create",
+                                "Import",
+                                "Delete",
+                                "Recover",
+                                "Backup",
+                                "Restore"
+                            ],
+                            "secrets": [
+                                "Get",
+                                "List",
+                                "Set",
+                                "Delete",
+                                "Recover",
+                                "Backup",
+                                "Restore"
+                            ],
+                            "certificates": [
+                                "Get",
+                                "List",
+                                "Update",
+                                "Create",
+                                "Import",
+                                "Delete",
+                                "Recover",
+                                "Backup",
+                                "Restore",
+                                "ManageContacts",
+                                "ManageIssuers",
+                                "GetIssuers",
+                                "ListIssuers",
+                                "SetIssuers",
+                                "DeleteIssuers"
+                            ]
+                        }
+                    },
+                    {
+                        "tenantId": "[variables('tenantId')]",
+                        "objectId": "[reference(resourceId('Microsoft.Web/sites', variables('appName')), '2020-12-01', 'Full').identity.principalId]",
+                        "permissions": {
+                            "keys": [
+                                "Get",
+                                "List",
+                                "Decrypt",
+                                "Encrypt",
+                                "UnwrapKey",
+                                "WrapKey",
+                                "Verify",
+                                "Sign"
+                            ],
+                            "secrets": [],
+                            "certificates": []
+                        }
+                    }
+                ],
+                "enabledForDeployment": false,
+                "enabledForDiskEncryption": false,
+                "enabledForTemplateDeployment": false,
+                "enableSoftDelete": true,
+                "softDeleteRetentionInDays": 90,
+                "enableRbacAuthorization": false
+            }
+        }
+    ],
+    "outputs": {
+        "FunctionAppName": {
+            "value": "[variables('appName')]",
+            "type": "string"
+        },
+        "KeyVaultName": {
+            "value": "[variables('keyVaultName')]",
+            "type": "string"
+        },
+        "StorageName": {
+            "value": "[variables('storageName')]",
+            "type": "string"
+        },
+        "MainUrl": {
+            "value": "[variables('mainUrl')]",
+            "type": "string"
+        },
+        "StaticWebSiteUrl": {
+            "value": "[reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageName'))).primaryEndpoints.web]",
+            "type": "string"
+        }
+    }
+}

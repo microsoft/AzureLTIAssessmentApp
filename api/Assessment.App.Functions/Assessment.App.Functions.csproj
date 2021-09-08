@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <AzureFunctionsVersion>V3</AzureFunctionsVersion>
+        <_FunctionsSkipCleanOutput>true</_FunctionsSkipCleanOutput>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Azure.Identity" Version="1.5.0-beta.2" />
+        <PackageReference Include="Azure.Security.KeyVault.Keys" Version="4.2.0" />
+        <PackageReference Include="IdentityModel" Version="3.10.5" />
+        <PackageReference Include="LtiAdvantage" Version="0.1.1-alpha.0" />
+        <PackageReference Include="LtiAdvantage.IdentityModel" Version="0.1.1-alpha.0" />
+        <PackageReference Include="Microsoft.ApplicationInsights" Version="2.18.0-beta3" />
+        <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.18.0-beta3" />
+        <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+        <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.20.1" />
+        <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
+        <PackageReference Include="Microsoft.Azure.KeyVault" Version="3.0.5" />
+        <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.6.1" />
+        <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.CosmosDB" Version="3.0.10" />
+        <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.DurableTask" Version="2.5.0" />
+        <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Http" Version="3.0.12" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0-preview.6.21352.12" />
+        <PackageReference Include="Microsoft.Identity.Web" Version="1.16.0" />
+        <PackageReference Include="Microsoft.IdentityModel.KeyVaultExtensions" Version="6.5.1" />
+        <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.12.1" />
+        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.12.1" />
+        <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.11" />
+        <PackageReference Include="System.Collections.NonGeneric" Version="4.3.0" />
+        <PackageReference Include="System.Collections.Specialized" Version="4.3.0" />
+        <PackageReference Include="System.ComponentModel.Annotations" Version="6.0.0-preview.4.21253.7" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.1" />
+        <PackageReference Include="System.Security.Claims" Version="4.3.0" />
+        <PackageReference Include="System.Text.Json" Version="6.0.0-preview.6.21352.12" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Update="host.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="proxies.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="local.settings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </None>
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Assessment.App.Azure\Assessment.App.Azure.csproj" />
+      <ProjectReference Include="..\Assessment.App.Database\Assessment.App.Database.csproj" />
+      <ProjectReference Include="..\Assessment.App.Lti\Assessment.App.Lti.csproj" />
+      <ProjectReference Include="..\Assessment.App.Utils\Assessment.App.Utils.csproj" />
+    </ItemGroup>
+</Project>
