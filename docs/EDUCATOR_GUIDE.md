@@ -48,7 +48,7 @@ At this stage, you can choose questions from question banks.
 
 ![questionbank](../images/questionbank.jpg)
 
-* Now you can add a name of the new question banks and add optional description. Click **Create** when you are ready.
+* Now you can add a name of the new question bank and add optional description. Click **Create** when you are ready.
 
 ![createquestionbank](../images/createquestionbank.jpg)
 
