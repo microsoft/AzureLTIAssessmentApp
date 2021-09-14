@@ -29,6 +29,10 @@ using JsonWebKeySet = IdentityModel.Jwk.JsonWebKeySet;
 
 namespace Assessment.App.Functions.Connect
 {
+    /// <summary>
+    /// Handles redirects from LMS to the Assessment App.
+    /// Based on the Learn LTI implementation: https://github.com/microsoft/Learn-LTI.
+    /// </summary>
     public class ConnectApi
     {
         private static readonly string RedirectUrl = Environment.GetEnvironmentVariable("RedirectUrl").TrimEnd('/');

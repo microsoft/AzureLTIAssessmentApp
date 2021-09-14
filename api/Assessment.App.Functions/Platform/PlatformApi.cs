@@ -23,6 +23,9 @@ using IMJsonWebKey = IdentityModel.Jwk.JsonWebKey;
 
 namespace Assessment.App.Functions.Platform
 {
+    /// <summary>
+    /// Azure Functions used by the Platform Registration Page.
+    /// </summary>
     public class PlatformApi
     {
         private static readonly string BaseApiUrl = Environment.GetEnvironmentVariable("BaseApiUrl").TrimEnd('/');
