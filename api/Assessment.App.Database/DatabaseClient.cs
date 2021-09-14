@@ -6,11 +6,13 @@ using System.Net;
 using System.Threading.Tasks;
 using Assessment.App.Database.Model;
 using Microsoft.Azure.Cosmos;
-using Microsoft.Azure.Cosmos.Linq;
 using Microsoft.Extensions.Logging;
 
 namespace Assessment.App.Database
 {
+    /// <summary>
+    /// Performs communication of the Assessment App with Cosmos DB.
+    /// </summary>
     public class DatabaseClient
     {
         private const string PlatformItemId = "main";
@@ -33,7 +35,13 @@ namespace Assessment.App.Database
             _assessmentsContainer = database.GetContainer("Assessments");
             _questionBanksContainer = database.GetContainer("QuestionBanks");
         }
-
+        
+        /// <summary>
+        /// Returns parameters used on Platform Registration Page
+        /// to configure the Assessment App and LMS using LTI.
+        /// If the database does not yet contain the parameters,
+        /// a new empty set of parameters is saved in the database and returned.
+        /// </summary>
         public async Task<PlatformInfoItem> GetPlatformInfo()
         {
             try
@@ -62,20 +70,33 @@ namespace Assessment.App.Database
                 throw;
             }
         }
-
+        
+        /// <summary>
+        /// Returns Question Bank with the given ID.
+        /// </summary>
+        /// <param name="questionBankId">ID of the question bank.</param>
         public async Task<QuestionBankItem> GetQuestionBank(string questionBankId)
         {
             return await _questionBanksContainer.ReadItemAsync<QuestionBankItem>(questionBankId,
                 new PartitionKey(questionBankId));
         }
-
+        
+        /// <summary>
+        /// Returns a list of questions with the given question IDs.
+        /// </summary>
         public async Task<List<QuestionItem>> GetQuestions(List<string> questionIds)
         {
             var idsAndKeys = questionIds.ConvertAll(s => (s, new PartitionKey(s)));
-            var result = await _questionsContainer.ReadManyItemsAsync<QuestionItem>(idsAndKeys);
+            var result = await _questionsContainer
+                .ReadManyItemsAsync<QuestionItem>(idsAndKeys);
             return result.ToList();
         }
-
+        
+        /// <summary>
+        /// Returns the student's response for the given assessment.
+        /// Returns null if no responses found.
+        /// Throws an exception if found more than one.
+        /// </summary>
         public async Task<StudentResponseItem?> GetStudentResponse(string assessmentId, string studentId)
         {
             StudentResponseItem? result = null;
@@ -100,7 +121,11 @@ namespace Assessment.App.Database
 
             return result;
         }
-
+        
+        /// <summary>
+        /// Returns student responses for the given assessment.
+        /// It is used for Assessment Analytics.
+        /// </summary>
         public async Task<List<StudentResponseItem>> GetAssessmentResponses(string assessmentId)
         {
             var result = new List<StudentResponseItem>();
@@ -119,7 +144,10 @@ namespace Assessment.App.Database
 
             return result;
         }
-
+        
+        /// <summary>
+        /// Deletes the question banks with the given IDs.
+        /// </summary>
         public async Task DeleteQuestionBanks(IEnumerable<string> questionBankIds)
         {
             foreach (var questionBankId in questionBankIds)
@@ -131,14 +159,20 @@ namespace Assessment.App.Database
                 await DeleteQuestionsItems(questionBank.QuestionIds);
             }
         }
-
+        
+        /// <summary>
+        /// Deletes the questions with the given IDs.
+        /// </summary>
         public async Task DeleteQuestions(List<string> questionIds)
         {
             await DeleteQuestionsFromAssessments(questionIds);
             await DeleteQuestionsFromQuestionBanks(questionIds);
             await DeleteQuestionsItems(questionIds);
         }
-
+        
+        /// <summary>
+        /// Deletes the question from the Questions container.
+        /// </summary>
         private async Task DeleteQuestionsItems(IEnumerable<string> questionIds)
         {
             foreach (var questionId in questionIds)
@@ -146,7 +180,10 @@ namespace Assessment.App.Database
                 await _questionsContainer.DeleteItemAsync<QuestionItem>(questionId, new PartitionKey(questionId));
             }
         }
-
+        
+        /// <summary>
+        /// Deletes the question from its question bank.
+        /// </summary>
         private async Task DeleteQuestionsFromQuestionBanks(List<string> questionIds)
         {
             var questionBanks = new Dictionary<string, QuestionBankItem>();
@@ -176,7 +213,10 @@ namespace Assessment.App.Database
                 await _questionBanksContainer.UpsertItemAsync(questionBank);
             }
         }
-
+        
+        /// <summary>
+        /// Deletes thr question from the assessments where it was used.
+        /// </summary>
         private async Task DeleteQuestionsFromAssessments(List<string> questionIds)
         {
             var assessments = new Dictionary<string, AssessmentItem>();
@@ -206,7 +246,10 @@ namespace Assessment.App.Database
                 await _assessmentsContainer.UpsertItemAsync(assessment);
             }
         }
-
+        
+        /// <summary>
+        /// Updates or inserts the given student response.
+        /// </summary>
         public async Task<StudentResponseItem> UpsertStudentResponse(StudentResponseItem item)
         {
             return await _studentResponsesContainer.UpsertItemAsync(item);
