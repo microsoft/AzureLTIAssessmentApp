@@ -17,6 +17,9 @@ using Newtonsoft.Json;
 
 namespace Assessment.App.Lti
 {
+    /// <summary>
+    /// Performs communication with LMS, which is specific to a particular assessment.
+    /// </summary>
     public class LtiAssessmentClient
     {
         private readonly AssessmentItem _assessmentItem;
@@ -25,6 +28,9 @@ namespace Assessment.App.Lti
 
         public LtiPlatformClient PlatformClient { get; }
 
+        /// <summary>
+        /// Creates LtiAssessmentClient instances.
+        /// </summary>
         public class Factory
         {
             private readonly IHttpClientFactory _httpClientFactory;
@@ -56,7 +62,10 @@ namespace Assessment.App.Lti
             _log = log;
             PlatformClient = platformClient;
         }
-
+        
+        /// <summary>
+        /// Returns course participants from LMS.
+        /// </summary>
         public async Task<IEnumerable<Member>> GetMembers()
         {
             var httpClient = await CreateHttpClientWithAccessToken(Constants.LtiScopes.Nrps.MembershipReadonly);
@@ -80,7 +89,12 @@ namespace Assessment.App.Lti
                 .OrderBy(m => m.FamilyName)
                 .ThenBy(m => m.GivenName);
         }
-
+        
+        /// <summary>
+        /// Returns a course participant with a given email.
+        /// </summary>
+        /// <param name="userEmails"></param>
+        /// <returns></returns>
         public async Task<Member> GetMemberByEmail(IEnumerable<string> userEmails)
         {
             // Looks like LTI 1.3 doesn't support querying by member identifiers
@@ -89,7 +103,10 @@ namespace Assessment.App.Lti
             return allMembers.FirstOrDefault(member => userEmails.Any(userEmail =>
                 (member.Email ?? string.Empty).Equals(userEmail, StringComparison.OrdinalIgnoreCase)));
         }
-
+        
+        /// <summary>
+        /// Returns a course participant with a given ID.
+        /// </summary>
         public async Task<Member> GetMemberById(string userId)
         {
             // Looks like LTI 1.3 doesn't support querying by member identifiers
@@ -97,7 +114,10 @@ namespace Assessment.App.Lti
 
             return allMembers.FirstOrDefault(member => member.UserId.Equals(userId));
         }
-
+        
+        /// <summary>
+        /// Sends student's grade to LMS grade book.
+        /// </summary>
         public async Task SubmitScore(Score score)
         {
             var httpClient = await CreateHttpClientWithAccessToken(Constants.LtiScopes.Ags.Score);

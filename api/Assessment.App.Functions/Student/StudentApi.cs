@@ -24,6 +24,9 @@ using Newtonsoft.Json;
 
 namespace Assessment.App.Functions.Student
 {
+    /// <summary>
+    /// Azure Functions used by the Student Interface of the Assessment App.
+    /// </summary>
     public class StudentApi
     {
         private readonly DatabaseClient _databaseClient;
