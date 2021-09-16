@@ -23,9 +23,10 @@ The project was completed as a part of Microsoft and University College London I
 ## Table of content:
 
 1. [Deployment Guide](./docs/DEPLOYMENT_GUIDE.md)
-2. [Configuration Guide](./docs/CONFIGURATION_GUIDE.md)
-3. [Educator Guide](./docs/EDUCATOR_GUIDE.md)
-4. [Student Guide](./docs/STUDENT_GUIDE.md)
+2. [Prerequisites](./docs/PREREQUISITES.md)
+3. [Configuration Guide](./docs/CONFIGURATION_GUIDE.md)
+4. [Educator Guide](./docs/EDUCATOR_GUIDE.md)
+5. [Student Guide](./docs/STUDENT_GUIDE.md)
 
 ## Contributing
 
