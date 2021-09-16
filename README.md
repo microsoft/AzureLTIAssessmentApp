@@ -16,6 +16,10 @@ The project was completed as a part of Microsoft and University College London I
 * **Participants and Grading** - the Assessment App securely retrieves the course participants from LMS and returns their grades back to LMS grade book.
 * **Assessment Analytics** - illustrative insights for educators.
 
+## Architecture 
+
+![Architecture](/images/architecturediagram.png)
+
 ## Table of content:
 
 1. [Deployment Guide](./docs/DEPLOYMENT_GUIDE.md)
