@@ -30,9 +30,9 @@ To begin, you will need:
 ## How to get started?
 
 1. Make sure that you installed one of the LMS for demonstration and testing purposes.
-2. Use the [Deployment Guide](https://github.com/microsoft/AzureLTIAssessmentApp/blob/main/docs/DEPLOYMENT_GUIDE.md) to deploy the Assessment App on your Azure Subscription.
-3. Use the [Configuration Guide](https://github.com/microsoft/AzureLTIAssessmentApp/blob/main/docs/CONFIGURATION_GUIDE.md) to configure the Assessment App in your LMS.
-4. Get familiar with application's architecture, [Educator Guide](https://github.com/microsoft/AzureLTIAssessmentApp/blob/main/docs/EDUCATOR_GUIDE.md) and [Student Guide](https://github.com/microsoft/AzureLTIAssessmentApp/blob/main/docs/STUDENT_GUIDE.md) to learn more about how the application works.
+2. Use the [Deployment Guide](/docs/DEPLOYMENT_GUIDE.md) to deploy the Assessment App on your Azure Subscription.
+3. Use the [Configuration Guide](/docs/CONFIGURATION_GUIDE.md) to configure the Assessment App in your LMS.
+4. Get familiar with application's [architecture](/images/architecturediagram.png), [Educator Guide](/docs/EDUCATOR_GUIDE.md) and [Student Guide](/docs/STUDENT_GUIDE.md) to learn more about how the application works.
 
 A video overview of the Assessment App interface can be found [here](https://youtu.be/XiIGph3-LdM).
 
@@ -46,8 +46,8 @@ You are free to use any Moodle distribution. For example, you can consider using
 **How to install Moodle Bitnami:**
 
 1. Go to the Azure Portal: https://portal.azure.com/#home.
-2. Search "Marketplace".
-3. Search "Moodle Bitnami" on the Azure Marketplace page and choose one of the available versions.
+2. Search for "Marketplace".
+3. Search for "Moodle Bitnami" on the Azure Marketplace page and choose one of the available versions.
 
 ### Open edX LMS
 
