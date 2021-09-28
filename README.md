@@ -27,6 +27,7 @@ The project was completed as a part of Microsoft and University College London I
 4. [Configuration Guide](./docs/CONFIGURATION_GUIDE.md)
 5. [Educator Guide](./docs/EDUCATOR_GUIDE.md)
 6. [Student Guide](./docs/STUDENT_GUIDE.md)
+7. [Pricing Structure](./docs/PRICING_STRUCTURE.md)
 
 ## Contributing
 
