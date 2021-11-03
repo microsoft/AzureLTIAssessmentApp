@@ -32,7 +32,7 @@
         },
         {
             "type": "Microsoft.DocumentDB/databaseAccounts",
-            "apiVersion": "2021-05-15",
+            "apiVersion": "2021-06-15",
             "name": "[variables('databaseName')]",
             "location": "[variables('location')]",
             "kind": "GlobalDocumentDB",
@@ -220,7 +220,7 @@
             "type": "Microsoft.Web/sites",
             "apiVersion": "2020-12-01",
             "name": "[variables('appName')]",
-            "location": "UK South",
+            "location": "[variables('location')]",
             "kind": "functionapp",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]",
