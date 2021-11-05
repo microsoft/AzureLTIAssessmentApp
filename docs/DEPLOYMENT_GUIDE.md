@@ -10,6 +10,8 @@ To begin, you will need:
 * [PowerShell](https://docs.microsoft.com/en-gb/powershell/scripting/install/installing-powershell?view=powershell-7.1&viewFallbackFrom=powershell-7%3FWT.mc_id%3DltiAssessment-github-cxa)
 * [Git](https://git-scm.com/downloads)
 * [Azure Subscription](https://azure.microsoft.com/free?WT.mc_id=ltiAssessment-github-cxa)
+* [Visual Studio Code](https://code.visualstudio.com?WT.mc_id=ltiAssessment-github-cxa)
+* [NuGet](https://www.nuget.org/downloads)
 
 Follow the steps to deploy the Microsoft Assessment App.
 
