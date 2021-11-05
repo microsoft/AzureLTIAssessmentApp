@@ -71,7 +71,7 @@ The following steps show how to register the parameters back in the LTI Assessme
 3. Optionally, you can add your Institution name and logo on the registration page.
 4. Click **SAVE REGISTRATION**.
 
-You're all set. The Azure LTI Assessment tool is now configured on your Moodle LMS and your Educators will be able to use it to bring assessments and grading to their courses. Follow the [educator guide](./EDUCATOR_GUIDE.md) to create assignments that use the Learn LTI tool.
+You're all set. The Azure LTI Assessment tool is now configured on your Moodle LMS and your Educators will be able to use it to bring assessments and grading to their courses. Follow the [educator guide](./EDUCATOR_GUIDE.md) to create assignments that use the LTI Assessment Application.
 
 The following steps show how to register the parameters back in the Platform Registration Tool.
 1. Open the Platform Registration Tool in your browser.
