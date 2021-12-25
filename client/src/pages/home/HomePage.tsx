@@ -199,6 +199,10 @@ export const HomePage = () => {
         history.push("/spa/new-question-bank")
     }
 
+    const redirectToImportQuestionBank = () => {
+        history.push("/spa/import-question-bank")
+    }
+
     const reloadData = async () => {
         const fetchedAssessments = await repositoryContext.getAssessments();
         const fetchedQuestionBanks = await repositoryContext.getQuestionBanks();
@@ -271,6 +275,13 @@ export const HomePage = () => {
             iconProps: { iconName: 'Add' },
             className: "new-question-bank-button",
             onClick: redirectToNewQuestionBank,
+        },
+        {
+            key: 'importItem',
+            text: 'Import Question Bank',
+            cacheKey: 'myCacheKey', // changing this key will invalidate this item's cache
+            iconProps: { iconName: 'Upload' },
+            onClick: redirectToImportQuestionBank,
         },
         {
             key: 'upload',
