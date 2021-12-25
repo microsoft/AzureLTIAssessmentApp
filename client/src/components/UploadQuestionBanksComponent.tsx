@@ -47,25 +47,34 @@ export const UploadQuestionBanksComponent = (
                 return;
             }
             const rawData = JSON.parse(text.toString());
+            console.log("Printing raw data here");
+            console.log(rawData);
             for (let rawBank of rawData) {
-                const bank = await repositoryContext.createNewQuestionBank({
-                    id: "",
-                    name: rawBank.name,
-                    description: rawBank.description,
-                    lastModified: new Date(),
-                    questionIds: [],
-                    assessmentType: rawBank.assessmentType,
-                });
-                for (let rawQuestion of rawBank.questions) {
-                    await repositoryContext.saveNewQuestion(bank.id, {
-                        id: "",
-                        name: rawQuestion.name,
-                        description: rawQuestion.description,
-                        lastModified: new Date(),
-                        options: rawQuestion.options,
-                        answer: rawQuestion.answer,
-                    })
-                }
+                console.log("Printing raw bank here"); 
+                console.log(rawBank);
+                // const bank = await repositoryContext.createNewQuestionBank({
+                //     id: "",
+                //     name: rawBank.name,
+                //     description: rawBank.description,
+                //     lastModified: new Date(),
+                //     questionIds: [],
+                //     assessmentType: rawBank.assessmentType,
+                // });
+                // for (let rawQuestion of rawBank.questions) {
+                //     await repositoryContext.saveNewQuestion(bank.id, {
+                //         id: "",
+                //         name: rawQuestion.name,
+                //         description: rawQuestion.description,
+                //         lastModified: new Date(),
+                //         options: rawQuestion.options,
+                //         answer: rawQuestion.answer,
+                //     })
+                // }
+
+                // start here 
+        
+                repositoryContext.openSourceCurriculumParser(rawBank);
+
             }
             onFinish(true);
             setInProgress(false);

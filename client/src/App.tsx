@@ -18,6 +18,7 @@ import {NewQuestionPage} from './pages/question/NewQuestionPage';
 import {StudentQuiz} from './pages/assessment/StudentQuiz';
 import { StudentWelcomePage } from './pages/assessment/StudentWelcomePage';
 import { StudentFinishedAssessment } from './pages/assessment/StudentFinishedAssessment';
+import {ImportQuestionBank} from './pages/questionBank/ImportQuestionBank'
 // import { FakeRepository } from './model/FakeRepository';
 
 
@@ -44,6 +45,9 @@ const InternalApp = () => {
                 </Route>
                 <Route path="/spa/new-question-bank">
                     <NewQuestionBank/>
+                </Route>
+                <Route path = "/spa/import-question-bank">
+                    <ImportQuestionBank/>
                 </Route>
                 <Route path="/spa/new-question/bank=:bankId">
                     <NewQuestionPage/>
