@@ -5,6 +5,7 @@ import { Member } from "./Member";
 import {StudentAssessment} from "./StudentAssessment";
 import {StudentAssessmentQuestions} from "./StudentAssessmentQuestions";
 import {AssessmentStatistics} from "./AssessmentStatistics";
+import { AnyARecord } from "dns";
 
 export interface IRepository {
     getAssessments(): Promise<Assessment[]>;
@@ -26,4 +27,5 @@ export interface IRepository {
     deleteQuestions(questionIds: string[]): void;
     deleteQuestionBanks(questionBankIds: string[]): void;
     isReady(): boolean;
+    openSourceCurriculumParser(text:any): void; 
 }

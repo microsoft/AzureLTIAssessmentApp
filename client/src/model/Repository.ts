@@ -179,7 +179,10 @@ export class Repository implements IRepository {
 
     public async createNewQuestionBank(bank: QuestionBank): Promise<QuestionBank> {
         const response = await axios.post<CreateQuestionBankResponse>("/api/create-question-bank", bank);
+
         const result = {...bank, id: response.data.id};
+        console.log("Yes we got a response from the locally hosted azure functions"); 
+        console.log(response.data.id); 
         if (this.questionBanks != null) {
             this.questionBanks[result.id] = result;
         }
@@ -273,4 +276,45 @@ export class Repository implements IRepository {
         console.log(`Inside repo: ${this.isReady()}`);
         throw new Error("Unable to get access token.");
     }
+
+    public async openSourceCurriculumParser  (rawBank: any) {
+        const bank = await this.createNewQuestionBank({
+            id: "",
+            name: rawBank.title,
+            description: "",
+            lastModified: new Date(),
+            questionIds: [],
+            assessmentType: "",
+        });
+        console.log("Created a new question bank"); 
+        for (let rawQuestion of rawBank.quizzes) {
+            for (let question of rawQuestion.quiz){
+                var answerTexts = Array(); 
+                var correctAnswer = 0;
+                var counter = 0;
+                console.log("Read a new question"); 
+                console.log(question.questionText);
+                for (let option of question.answerOptions){
+                    answerTexts.push(option.answerText)
+                    if (option.isCorrect == "true"){
+                        correctAnswer = counter ;
+                    }
+                    counter = counter + 1;
+
+                }
+                await this.saveNewQuestion(bank.id, {
+                    id: "",
+                    name: question.questionText,
+                    description: rawQuestion.title,
+                    lastModified: new Date (),
+                    options: answerTexts,
+                    answer: correctAnswer,
+                })
+
+            }
+            console.log("Done with one quiz"); 
+            
+        }
+    }
+    
 }
