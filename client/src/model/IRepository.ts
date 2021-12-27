@@ -27,5 +27,4 @@ export interface IRepository {
     deleteQuestions(questionIds: string[]): void;
     deleteQuestionBanks(questionBankIds: string[]): void;
     isReady(): boolean;
-    openSourceCurriculumParser(text:any): void; 
 }

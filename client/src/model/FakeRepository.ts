@@ -293,7 +293,6 @@ export class FakeRepository implements IRepository {
             },
         }
     }
-
     public async getAssessments(): Promise<Assessment[]> {
         return Object.values(this.assessments);
     }
