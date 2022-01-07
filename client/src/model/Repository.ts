@@ -177,6 +177,14 @@ export class Repository implements IRepository {
         return result;
     }
 
+    public async updateQuestionBankWithName(bankId: string, q: string): Promise<QuestionBank> {
+        // const response = await axios.post<CreateQuestionResponse>("/api/create-question", q);
+        const questionBank = await this.getQuestionBankById(bankId);
+        questionBank.name = q; 
+        await this.updateQuestionBank(questionBank);
+        return questionBank; 
+    }
+
     public async createNewQuestionBank(bank: QuestionBank): Promise<QuestionBank> {
         const response = await axios.post<CreateQuestionBankResponse>("/api/create-question-bank", bank);
 

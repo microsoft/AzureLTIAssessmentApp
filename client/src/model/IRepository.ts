@@ -27,4 +27,5 @@ export interface IRepository {
     deleteQuestions(questionIds: string[]): void;
     deleteQuestionBanks(questionBankIds: string[]): void;
     isReady(): boolean;
+    updateQuestionBankWithName(bankId: string, q: string):Promise<QuestionBank>; 
 }
