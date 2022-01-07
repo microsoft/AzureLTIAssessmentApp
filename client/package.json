@@ -14,6 +14,7 @@
     "axios": "^0.21.4",
     "d3": "^7.0.1",
     "file-saver": "^2.0.5",
+    "gift-pegjs": "^0.2.1",
     "react": "^17.0.2",
     "react-countdown-circle-timer": "^2.5.4",
     "react-dom": "^17.0.2",
@@ -24,23 +25,27 @@
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
-    "@types/jest": "^27.0.1",
+    "@azure/static-web-apps-cli": "^0.8.1",
+    "@testing-library/dom": "^8.3.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",
-    "@testing-library/dom": "^8.3.0",
     "@types/file-saver": "^2.0.3",
+    "@types/jest": "^27.0.1",
     "@types/react-helmet": "^6.1.2",
     "@types/react-router-dom": "^5.1.8",
     "@types/selenium-webdriver": "^4.0.15",
+    "azure-functions-core-tools": "^3.0.3904",
+    "concurrently": "^6.4.0",
     "react-scripts": "^4.0.3",
     "selenium-webdriver": "^4.0.0-rc-1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start-api": "cd api && npm start",
+    "start-app": "react-scripts start",
+    "start-dev": "concurrently \"npm:start-api\" \"npm:start-app\" ",
+    "start-swa": "swa start http://localhost:3000 --api-location http://localhost:7071",
+    "start": " npm run start-dev && npm run swa-up"
   },
   "eslintConfig": {
     "extends": [

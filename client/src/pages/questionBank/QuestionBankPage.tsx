@@ -68,14 +68,16 @@ export const QuestionBankPage = () => {
         styles: modalPropsStyles,
     }), []);
     const repositoryContext = React.useContext(RepositoryContext);
+    const [questionBankName, setQuestionBankName] = useState<string> ("")
     const [questionBank, setQuestionBank] = useState<QuestionBank>({
         id: "",
-        name: "",
+        name: questionBankName,
         description: "",
         lastModified: new Date(),
         questionIds: [],
         assessmentType: "Quiz",
     })
+   
     const [questions, setQuestions] = useState<QuestionListItem[]>([]);
     const [selectionCount, setSelectionCount] = useState(0);
     const [selection] = useState(new Selection({

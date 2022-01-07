@@ -6,14 +6,14 @@
     "AzureWebJobs.HttpExample.Disabled": "true",
     "BaseApiUrl": "http://localhost:7071",
     "RedirectUrl": "http://localhost:4280",
-    "KeyVaultUrl": "https://assessment-app-kv.vault.azure.net",
-    "EdnaLiteDevKey": "https://assessment-app-kv.vault.azure.net/keys/EdnaLiteDevKey/9c107fa4d63f48ff8fa01fe75f295feb",
-    "EdnaKeyString": "https://assessment-app-kv.vault.azure.net/keys/EdnaLiteDevKey/9c107fa4d63f48ff8fa01fe75f295feb",
+    "KeyVaultUrl": "https://key-vault-sq35idyea.vault.azure.net/",
+    "EdnaLiteDevKey": "https://key-vault-sq35idyea.vault.azure.net/keys/EdnaLiteDevKey/ae10f12d2814478c9aefaf8475218627",
+    "EdnaKeyString": "https://key-vault-sq35idyea.vault.azure.net/keys/EdnaLiteDevKey/ae10f12d2814478c9aefaf8475218627",
     "AzureAd:Instance": "https://login.microsoftonline.com/",
-    "AzureAd:Domain": "viktoriiademinagmail.onmicrosoft.com",
-    "AzureAd:TenantId": "8e149a57-04b4-4215-9cff-5a23fc0a7fbf",
-    "AzureAd:ClientId": "6bf0ea7a-239d-414a-8e0f-c88bac05b6c8",
-    "AzureAd:ClientSecret": "C._b6T~_M6i2.77d6Hc_Se6n-87IW5tR5w"
+    "AzureAd:Domain": "nehawhatever.onmicrosoft.com",
+    "AzureAd:TenantId": "644a96b4-10b1-4bfa-9f9f-195824b5aa90",
+    "AzureAd:ClientId": "bae02154-0484-4051-b1f9-8b2e7b8fbbcc",
+    "AzureAd:ClientSecret": "7nI7Q~H3qa6vG2H2ypI~Ry6-akD41vdYGxGa5"
   },
   "Host": {
     "LocalHttpPort": 7071,
