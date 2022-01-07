@@ -4,6 +4,8 @@ import {useMemo, useState} from "react";
 import {RepositoryContext} from "../context/RepositoryContext";
 import { Dropdown, IDropdown } from '@fluentui/react/lib/Dropdown';
 import { IStackTokens, Stack } from '@fluentui/react/lib/Stack';
+import { parse, GIFTQuestion, TextChoice, TextFormat } from "gift-pegjs";
+import { arrayBuffer } from "stream/consumers";
 
 const dropdownStyles = { dropdown: { width: 300 } };
 const modalPropsStyles = { main: { maxWidth: 600 } };
@@ -61,6 +63,7 @@ export const UploadQuestionBanksComponent = (
                 })
             }
         }
+        return true; 
 
     }
 
@@ -104,6 +107,88 @@ export const UploadQuestionBanksComponent = (
                 console.log("Done with one quiz");  
             }
         }
+        return true; 
+    }
+    function removeTags(str:string) {
+        if ((str===null) || (str===''))
+            return '';
+        else
+            str = str.toString();
+            str= str.replace(/(\r\n|\n|\r)/gm,"");
+              
+        // Regular expression to identify HTML tags in 
+        // the input string. Replacing the identified 
+        // HTML tag with a null string.
+        return str.replace( /(<([^>]+)>)/ig, '');
+    }
+
+    const giftFormat = async (rawData:any) => {
+        // Only MCQ questions for now
+        // ::title:: -> Question title
+        // text -> Question text 
+        // [format] -> [html], [plain], [markdown]
+        const quiz: GIFTQuestion[] = parse(rawData)
+        console.log(quiz); 
+        const bank = await repositoryContext.createNewQuestionBank({
+            id: "",
+            name: "GIFT Question Bank", // We update the name later
+            description: "",
+            lastModified: new Date(),
+            questionIds: [],
+            assessmentType: "",
+        });
+        console.log("Created a new question bank"); 
+
+
+        for (let question in quiz){ 
+            var q: GIFTQuestion = quiz[question]
+            if (q.type === "Category"){
+                await repositoryContext.updateQuestionBankWithName(bank.id, q.title)
+            }
+            if (q.type === "MC"){ // multiple choice 
+
+                var choices:TextChoice[] = q.choices; 
+                var answerTexts = Array(); 
+                var correctAnswer = 0;  
+                for (var choice in choices){
+                    var details:TextChoice  = choices[choice];
+                    answerTexts.push(removeTags(details.text['text'])); 
+                    if (details.isCorrect){
+                        correctAnswer = +choice;  // plus operator converts to number
+                    }
+                }
+                var stem:TextFormat  = q.stem;
+
+                await repositoryContext.saveNewQuestion(bank.id, {
+                    id: "",
+                    name: removeTags(stem.text),
+                    description: removeTags(stem.text),
+                    lastModified: new Date (),
+                    options: answerTexts,
+                    answer: correctAnswer,
+                })
+
+            }
+
+            if (q.type === "TF"){
+                var stem:TextFormat  = q.stem;
+                var isTrue:boolean = q.isTrue; 
+                await repositoryContext.saveNewQuestion(bank.id, {
+                    id: "",
+                    name: removeTags(stem.text),
+                    description: removeTags(stem.text),
+                    lastModified: new Date (),
+                    options: ["True", "False"],
+                    answer: isTrue?0:1,
+                })
+                
+            }
+            
+        }
+
+        return true; 
+
+
     }
 
     const doUpload = async () => {
@@ -119,20 +204,22 @@ export const UploadQuestionBanksComponent = (
             if (!text) {
                 return;
             }
-            const rawData = JSON.parse(text.toString());
+            
             switch(selectedOption.key) { 
                 case "A": { 
                     // opensource curriculum
-                    openSourceCurriculumJson(rawData); 
+                    const rawData = JSON.parse(text.toString());
+                    await openSourceCurriculumJson(rawData); 
                    break; 
                 } 
                 case "B": { 
-                   //statements; 
-                   assessmentAppJson(rawData); 
+                   //statements;
+                   const rawData = JSON.parse(text.toString()); 
+                   await assessmentAppJson(rawData); 
                    break; 
                 } 
                 case "C": { 
-                   //statements; 
+                    await giftFormat(text.toString());  
                    break; 
                 } 
                 default: {
@@ -146,13 +233,11 @@ export const UploadQuestionBanksComponent = (
     };
 
     const dropdownRef = React.createRef<IDropdown>();
-    const onSetFocus = () => dropdownRef.current!.focus(true);
-    const stackTokens: IStackTokens = { childrenGap: 20 };
     const uploadOptions = [
         { key: 'A', text: 'Microsoft Open Source Curriculum JSON'},
         { key: 'B', text: 'Assessment App JSON' },
-        { key: 'C', text: 'Moodle Export'},
-        { key: 'D', text: 'Canvas Export' },
+        { key: 'C', text: 'GIFT Export'},
+        { key: 'D', text: 'QTI Zip Export' },
     ];
 
     return(
