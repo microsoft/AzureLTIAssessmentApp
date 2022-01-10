@@ -114,12 +114,9 @@ export const UploadQuestionBanksComponent = (
             return '';
         else
             str = str.toString();
-            str= str.replace(/(\r\n|\n|\r)/gm,"");
-              
-        // Regular expression to identify HTML tags in 
-        // the input string. Replacing the identified 
-        // HTML tag with a null string.
-        return str.replace( /(<([^>]+)>)/ig, '');
+            str = str.replace( /(<([^>]+)>)/ig, '')
+            str = str.replaceAll('\\n','')
+        return str;
     }
 
     const giftFormat = async (rawData:any) => {
