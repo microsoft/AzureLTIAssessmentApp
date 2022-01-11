@@ -6,6 +6,8 @@ import { Dropdown, IDropdown } from '@fluentui/react/lib/Dropdown';
 import { IStackTokens, Stack } from '@fluentui/react/lib/Stack';
 import { parse, GIFTQuestion, TextChoice, TextFormat } from "gift-pegjs";
 import { arrayBuffer } from "stream/consumers";
+import { XMLParser} from "fast-xml-parser";
+import { addConsoleHandler } from "selenium-webdriver/lib/logging";
 
 const dropdownStyles = { dropdown: { width: 300 } };
 const modalPropsStyles = { main: { maxWidth: 600 } };
@@ -42,8 +44,6 @@ export const UploadQuestionBanksComponent = (
 
     const assessmentAppJson = async (rawData:any) => {
         for (let rawBank of rawData) {
-            console.log("Printing raw bank here"); 
-            console.log(rawBank);
             const bank = await repositoryContext.createNewQuestionBank({
                 id: "",
                 name: rawBank.name,
@@ -188,6 +188,111 @@ export const UploadQuestionBanksComponent = (
 
     }
 
+
+    const canvasFormat = async (rawData:any) => {
+        const options = {
+            ignoreAttributes:false
+        }; 
+        const parser: XMLParser = new XMLParser(options)
+        var parsedInput = parser.parse(rawData); 
+        console.log(parsedInput); 
+        var assessment = parsedInput['questestinterop']['assessment']; 
+        const bank = await repositoryContext.createNewQuestionBank({
+            id: "",
+            name: assessment['@_title'], // We update the name later
+            description: "",
+            lastModified: new Date(),
+            questionIds: [],
+            assessmentType: "",
+        });
+        console.log("Created a new question bank"); 
+        var questions = assessment['section']['item']
+        for (let questionId in questions){
+            var question = questions[questionId]; 
+            var questionTitle = question['@_title']; 
+            var qMetaDataField = question['itemmetadata']['qtimetadata']['qtimetadatafield']; 
+            var metaData = qMetaDataField[0]; // 0 position contains question type
+            if (metaData['fieldentry'] != 'multiple_choice_question'){
+                continue; // As we currently only support MCQs
+            }
+            var questionText = question['presentation']['material']['mattext']['#text']; 
+            questionText = removeTags(questionText); // Clean any html tags
+            questionText = questionText.split('\n')[1];
+
+            // Get all options 
+            var responseLabels = question['presentation']['response_lid']['render_choice']['response_label']; 
+            var answerTexts = Array(); 
+            var correctAnswer = question['resprocessing']['respcondition']['conditionvar']['varequal']['#text']
+            for (let responseId in responseLabels){
+                var response = responseLabels[responseId]; 
+                if (correctAnswer == response['@_ident']){
+                    correctAnswer = responseId; 
+                }
+                answerTexts.push(removeTags(response['material']['mattext']['#text']))
+            }
+            // Finally creating the question 
+            await repositoryContext.saveNewQuestion(bank.id, {
+                            id: "",
+                            name: questionTitle,
+                            description: questionText,
+                            lastModified: new Date (),
+                            options: answerTexts,
+                            answer: correctAnswer,
+                        })
+
+        }
+
+        // for (let question in quiz){ 
+        //     var q: GIFTQuestion = quiz[question]
+        //     if (q.type === "Category"){
+        //         await repositoryContext.updateQuestionBankWithName(bank.id, q.title)
+        //     }
+        //     if (q.type === "MC"){ // multiple choice 
+
+        //         var choices:TextChoice[] = q.choices; 
+        //         var answerTexts = Array(); 
+        //         var correctAnswer = 0;  
+        //         for (var choice in choices){
+        //             var details:TextChoice  = choices[choice];
+        //             answerTexts.push(removeTags(details.text['text'])); 
+        //             if (details.isCorrect){
+        //                 correctAnswer = +choice;  // plus operator converts to number
+        //             }
+        //         }
+        //         var stem:TextFormat  = q.stem;
+
+        //         await repositoryContext.saveNewQuestion(bank.id, {
+        //             id: "",
+        //             name: removeTags(stem.text),
+        //             description: removeTags(stem.text),
+        //             lastModified: new Date (),
+        //             options: answerTexts,
+        //             answer: correctAnswer,
+        //         })
+
+        //     }
+
+        //     if (q.type === "TF"){
+        //         var stem:TextFormat  = q.stem;
+        //         var isTrue:boolean = q.isTrue; 
+        //         await repositoryContext.saveNewQuestion(bank.id, {
+        //             id: "",
+        //             name: removeTags(stem.text),
+        //             description: removeTags(stem.text),
+        //             lastModified: new Date (),
+        //             options: ["True", "False"],
+        //             answer: isTrue?0:1,
+        //         })
+                
+        //     }
+            
+        // }
+
+        return true; 
+
+
+    }
+
     const doUpload = async () => {
         if (selectedFile === null || selectedOption === null) {
             return;
@@ -219,8 +324,9 @@ export const UploadQuestionBanksComponent = (
                     await giftFormat(text.toString());  
                    break; 
                 } 
-                default: {
-                    console.log("Option has not been coded out yet"); 
+                case "D": {
+                    await canvasFormat(text.toString()); 
+                    break;
                 }
              } 
             onFinish(true);
