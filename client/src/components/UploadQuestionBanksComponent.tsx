@@ -3,11 +3,10 @@ import * as React from "react";
 import {useMemo, useState} from "react";
 import {RepositoryContext} from "../context/RepositoryContext";
 import { Dropdown, IDropdown } from '@fluentui/react/lib/Dropdown';
-import { IStackTokens, Stack } from '@fluentui/react/lib/Stack';
-import { parse, GIFTQuestion, TextChoice, TextFormat } from "gift-pegjs";
-import { arrayBuffer } from "stream/consumers";
 import { XMLParser} from "fast-xml-parser";
-import { addConsoleHandler } from "selenium-webdriver/lib/logging";
+import { AssessmentAppParserFactory } from "../model/parsers/AssessmentAppParserFactory";
+import { Question } from "../model/Question";
+import { ParsedQuestionBank } from "../model/parsers/ParsedQuestionBank";
 
 const dropdownStyles = { dropdown: { width: 300 } };
 const modalPropsStyles = { main: { maxWidth: 600 } };
@@ -119,74 +118,71 @@ export const UploadQuestionBanksComponent = (
         return str;
     }
 
-    const giftFormat = async (rawData:any) => {
-        // Only MCQ questions for now
-        // ::title:: -> Question title
-        // text -> Question text 
-        // [format] -> [html], [plain], [markdown]
-        const quiz: GIFTQuestion[] = parse(rawData)
-        console.log(quiz); 
-        const bank = await repositoryContext.createNewQuestionBank({
-            id: "",
-            name: "GIFT Question Bank", // We update the name later
-            description: "",
-            lastModified: new Date(),
-            questionIds: [],
-            assessmentType: "",
-        });
-        console.log("Created a new question bank"); 
+    // const giftFormat = async (rawData:any) => {
+    //     // Only MCQ and True/False questions supported for now
+    //     const quiz: GIFTQuestion[] = parse(rawData)
+    //     console.log(quiz); 
+    //     const bank = await repositoryContext.createNewQuestionBank({
+    //         id: "",
+    //         name: "GIFT Question Bank", // We update the name later
+    //         description: "",
+    //         lastModified: new Date(),
+    //         questionIds: [],
+    //         assessmentType: "",
+    //     });
+    //     console.log("Created a new question bank"); 
 
 
-        for (let question in quiz){ 
-            var q: GIFTQuestion = quiz[question]
-            if (q.type === "Category"){
-                await repositoryContext.updateQuestionBankWithName(bank.id, q.title)
-            }
-            if (q.type === "MC"){ // multiple choice 
+    //     for (let question in quiz){ 
+    //         var q: GIFTQuestion = quiz[question]
+    //         if (q.type === "Category"){
+    //             await repositoryContext.updateQuestionBankWithName(bank.id, q.title)
+    //         }
+    //         if (q.type === "MC"){ // multiple choice 
 
-                var choices:TextChoice[] = q.choices; 
-                var answerTexts = Array(); 
-                var correctAnswer = 0;  
-                for (var choice in choices){
-                    var details:TextChoice  = choices[choice];
-                    answerTexts.push(removeTags(details.text['text'])); 
-                    if (details.isCorrect){
-                        correctAnswer = +choice;  // plus operator converts to number
-                    }
-                }
-                var stem:TextFormat  = q.stem;
+    //             var choices:TextChoice[] = q.choices; 
+    //             var answerTexts = Array(); 
+    //             var correctAnswer = 0;  
+    //             for (var choice in choices){
+    //                 var details:TextChoice  = choices[choice];
+    //                 answerTexts.push(removeTags(details.text['text'])); 
+    //                 if (details.isCorrect){
+    //                     correctAnswer = +choice;  // plus operator converts to number
+    //                 }
+    //             }
+    //             var stem:TextFormat  = q.stem;
 
-                await repositoryContext.saveNewQuestion(bank.id, {
-                    id: "",
-                    name: removeTags(stem.text),
-                    description: removeTags(stem.text),
-                    lastModified: new Date (),
-                    options: answerTexts,
-                    answer: correctAnswer,
-                })
+    //             await repositoryContext.saveNewQuestion(bank.id, {
+    //                 id: "",
+    //                 name: removeTags(stem.text),
+    //                 description: removeTags(stem.text),
+    //                 lastModified: new Date (),
+    //                 options: answerTexts,
+    //                 answer: correctAnswer,
+    //             })
 
-            }
+    //         }
 
-            if (q.type === "TF"){
-                var stem:TextFormat  = q.stem;
-                var isTrue:boolean = q.isTrue; 
-                await repositoryContext.saveNewQuestion(bank.id, {
-                    id: "",
-                    name: removeTags(stem.text),
-                    description: removeTags(stem.text),
-                    lastModified: new Date (),
-                    options: ["True", "False"],
-                    answer: isTrue?0:1,
-                })
+    //         if (q.type === "TF"){
+    //             var stem:TextFormat  = q.stem;
+    //             var isTrue:boolean = q.isTrue; 
+    //             await repositoryContext.saveNewQuestion(bank.id, {
+    //                 id: "",
+    //                 name: removeTags(stem.text),
+    //                 description: removeTags(stem.text),
+    //                 lastModified: new Date (),
+    //                 options: ["True", "False"],
+    //                 answer: isTrue?0:1,
+    //             })
                 
-            }
+    //         }
             
-        }
+    //     }
 
-        return true; 
+    //     return true; 
 
 
-    }
+    // }
 
 
     const canvasFormat = async (rawData:any) => {
@@ -242,52 +238,6 @@ export const UploadQuestionBanksComponent = (
 
         }
 
-        // for (let question in quiz){ 
-        //     var q: GIFTQuestion = quiz[question]
-        //     if (q.type === "Category"){
-        //         await repositoryContext.updateQuestionBankWithName(bank.id, q.title)
-        //     }
-        //     if (q.type === "MC"){ // multiple choice 
-
-        //         var choices:TextChoice[] = q.choices; 
-        //         var answerTexts = Array(); 
-        //         var correctAnswer = 0;  
-        //         for (var choice in choices){
-        //             var details:TextChoice  = choices[choice];
-        //             answerTexts.push(removeTags(details.text['text'])); 
-        //             if (details.isCorrect){
-        //                 correctAnswer = +choice;  // plus operator converts to number
-        //             }
-        //         }
-        //         var stem:TextFormat  = q.stem;
-
-        //         await repositoryContext.saveNewQuestion(bank.id, {
-        //             id: "",
-        //             name: removeTags(stem.text),
-        //             description: removeTags(stem.text),
-        //             lastModified: new Date (),
-        //             options: answerTexts,
-        //             answer: correctAnswer,
-        //         })
-
-        //     }
-
-        //     if (q.type === "TF"){
-        //         var stem:TextFormat  = q.stem;
-        //         var isTrue:boolean = q.isTrue; 
-        //         await repositoryContext.saveNewQuestion(bank.id, {
-        //             id: "",
-        //             name: removeTags(stem.text),
-        //             description: removeTags(stem.text),
-        //             lastModified: new Date (),
-        //             options: ["True", "False"],
-        //             answer: isTrue?0:1,
-        //         })
-                
-        //     }
-            
-        // }
-
         return true; 
 
 
@@ -306,29 +256,32 @@ export const UploadQuestionBanksComponent = (
             if (!text) {
                 return;
             }
+            var parserFactory = new AssessmentAppParserFactory(text.toString(), selectedOption.key); 
+            var parser = parserFactory.parser; 
+            parser.parse(); 
+            var questionBanks: ParsedQuestionBank[] = parser.questionbanks;
             
-            switch(selectedOption.key) { 
-                case "A": { 
-                    // opensource curriculum
-                    const rawData = JSON.parse(text.toString());
-                    await openSourceCurriculumJson(rawData); 
-                   break; 
-                } 
-                case "B": { 
-                   //statements;
-                   const rawData = JSON.parse(text.toString()); 
-                   await assessmentAppJson(rawData); 
-                   break; 
-                } 
-                case "C": { 
-                    await giftFormat(text.toString());  
-                   break; 
-                } 
-                case "D": {
-                    await canvasFormat(text.toString()); 
-                    break;
+            for (let qb_id in questionBanks){
+                console.log("currenly looking at question bank"); 
+                console.log(qb_id); 
+                var questionBank:ParsedQuestionBank = questionBanks[qb_id]; 
+                const bank = await repositoryContext.createNewQuestionBank({
+                    id: "",
+                    name: questionBank.questionBankTitle,
+                    description: "",
+                    lastModified: new Date(),
+                    questionIds: [],
+                    assessmentType: "",
+                });
+    
+                const questions:Question[] = questionBank.questions; 
+                for (let questionId in questions){
+                    await repositoryContext.saveNewQuestion(bank.id, questions[questionId])
                 }
-             } 
+
+
+            }
+
             onFinish(true);
             setInProgress(false);
         }
@@ -337,8 +290,8 @@ export const UploadQuestionBanksComponent = (
 
     const dropdownRef = React.createRef<IDropdown>();
     const uploadOptions = [
-        { key: 'A', text: 'Microsoft Open Source Curriculum JSON'},
-        { key: 'B', text: 'Assessment App JSON' },
+        { key: 'A', text: 'Assessment App JSON'},
+        { key: 'B', text: 'Microsoft Open Source Curriculum JSON ' },
         { key: 'C', text: 'GIFT Export'},
         { key: 'D', text: 'QTI Zip Export' },
     ];
