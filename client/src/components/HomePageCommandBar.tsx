@@ -4,7 +4,7 @@ import { IButtonProps } from '@fluentui/react/lib/Button';
 import {useHistory} from "react-router-dom";
 
 const overflowProps: IButtonProps = { ariaLabel: 'More commands' };
-// I think we can delete this component not sure!
+
 export const CommandBarBasicExample: React.FunctionComponent = () => {
     const history = useHistory();
     const redirectToNewQuestionBank = () => {
@@ -28,4 +28,3 @@ export const CommandBarBasicExample: React.FunctionComponent = () => {
         </div>
     );
 };
-
