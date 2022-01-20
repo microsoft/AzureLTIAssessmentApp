@@ -4,7 +4,7 @@
 
 To begin, you will need:
 
-* [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest?WT.mc_id=ltiAssessment-github-cxa)
+* [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest?WT.mc_id=ltiAssessment-github-cxa)
 * [.NET Core SDK](https://dotnet.microsoft.com/download?WT.mc_id=lti-github-cxa)
 * [Node.js](https://nodejs.org/en/download/)
 * [Git](https://git-scm.com/downloads)
