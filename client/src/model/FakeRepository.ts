@@ -293,6 +293,7 @@ export class FakeRepository implements IRepository {
             },
         }
     }
+
     public async getAssessments(): Promise<Assessment[]> {
         return Object.values(this.assessments);
     }
@@ -366,6 +367,4 @@ export class FakeRepository implements IRepository {
     public async deleteQuestionBanks(questionBankIds: string[]) {
         throw new Error("Not implemented");
     }
-
-
 }
