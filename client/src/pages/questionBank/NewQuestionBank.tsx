@@ -97,7 +97,7 @@ export const NewQuestionBank: React.FunctionComponent<IButtonExampleProps> = pro
                         <Col md={1}>
                             <PrimaryButton
                                 id="create-question-bank-button"
-                                text="Create HEHE"
+                                text="Create"
                                 onClick={createQuestionBank}
                                 allowDisabledFocus
                                 disabled={disabled}
