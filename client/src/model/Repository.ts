@@ -179,10 +179,7 @@ export class Repository implements IRepository {
 
     public async createNewQuestionBank(bank: QuestionBank): Promise<QuestionBank> {
         const response = await axios.post<CreateQuestionBankResponse>("/api/create-question-bank", bank);
-
         const result = {...bank, id: response.data.id};
-        console.log("Yes we got a response from the locally hosted azure functions"); 
-        console.log(response.data.id); 
         if (this.questionBanks != null) {
             this.questionBanks[result.id] = result;
         }
@@ -276,5 +273,4 @@ export class Repository implements IRepository {
         console.log(`Inside repo: ${this.isReady()}`);
         throw new Error("Unable to get access token.");
     }
-    
 }
