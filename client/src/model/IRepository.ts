@@ -5,7 +5,6 @@ import { Member } from "./Member";
 import {StudentAssessment} from "./StudentAssessment";
 import {StudentAssessmentQuestions} from "./StudentAssessmentQuestions";
 import {AssessmentStatistics} from "./AssessmentStatistics";
-import { AnyARecord } from "dns";
 
 export interface IRepository {
     getAssessments(): Promise<Assessment[]>;
