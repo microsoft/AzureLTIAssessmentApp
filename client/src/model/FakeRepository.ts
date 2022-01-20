@@ -328,9 +328,6 @@ export class FakeRepository implements IRepository {
         this.questionBanks[bankId].questionIds.push(nextQuestionId);
         return questionToSave;
     }
-    public async updateQuestionBankWithName(bankId: string, q: string):Promise<QuestionBank>{
-        return this.questionBanks[bankId]; 
-    } 
     public async createNewQuestionBank(bank: QuestionBank): Promise<QuestionBank> {
         const nextQuestionBankId = Object.keys(this.questionBanks).length.toString();
         const newQuestionBank = {
