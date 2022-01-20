@@ -76,7 +76,6 @@ export const QuestionBankPage = () => {
         questionIds: [],
         assessmentType: "Quiz",
     })
-   
     const [questions, setQuestions] = useState<QuestionListItem[]>([]);
     const [selectionCount, setSelectionCount] = useState(0);
     const [selection] = useState(new Selection({
