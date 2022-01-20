@@ -68,10 +68,9 @@ export const QuestionBankPage = () => {
         styles: modalPropsStyles,
     }), []);
     const repositoryContext = React.useContext(RepositoryContext);
-    const [questionBankName, setQuestionBankName] = useState<string> ("")
     const [questionBank, setQuestionBank] = useState<QuestionBank>({
         id: "",
-        name: questionBankName,
+        name: "",
         description: "",
         lastModified: new Date(),
         questionIds: [],
