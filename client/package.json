@@ -42,11 +42,11 @@
     "selenium-webdriver": "^4.0.0-rc-1"
   },
   "scripts": {
-    "start-api": "cd api && npm start",
-    "start-app": "react-scripts start",
-    "start-dev": "concurrently \"npm:start-api\" \"npm:start-app\" ",
-    "start-swa": "swa start http://localhost:3000 --api-location http://localhost:7071",
-    "start": " npm run start-dev && npm run swa-up"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "start-swa": "swa start http://localhost:3000 --api-location http://localhost:7071"
   },
   "eslintConfig": {
     "extends": [

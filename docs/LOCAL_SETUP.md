@@ -61,6 +61,10 @@ Create an App registration in your Azure Active directory (You should have admin
 
 
 ## Get client app running locally 
+* Go to the client directory through your terminal of choice 
+* Run ``` npm start ```
+* Open another terminal in the same directory and run ``` npm run start-swa ```
+
 
 
 
