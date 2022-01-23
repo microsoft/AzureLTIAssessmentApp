@@ -8,7 +8,9 @@ Most modern Learning Management systems (LMS), such as [Moodle](https://moodle.o
 
 The Assessment App aims to reduce time spent by Educators on assessment management because it works independently from any LMS, provides a unified user interface and eliminates the need to transfer the questions from one format to another when switching between different LMS.
 
-The project was completed as a part of Microsoft and University College London Industry Exchange Network ([UCL IXN](https://www.ucl.ac.uk/computer-science/collaborate/ucl-industry-exchange-network-ucl-ixn)) [Victoria Demina](https://github.com/victoriademina) under supervision of Dr. Graham Roberts (UCL) and Lee Stott (Microsoft) building of the [Microsoft Learn LTI](http://github.com/microsoft/learn-lti) Open Source Solution
+The project was started as a part of Microsoft and University College London Industry Exchange Network ([UCL IXN](https://www.ucl.ac.uk/computer-science/collaborate/ucl-industry-exchange-network-ucl-ixn)) [Victoria Demina](https://github.com/victoriademina) under supervision of Dr. Graham Roberts (UCL) and Lee Stott (Microsoft) building of the [Microsoft Learn LTI](http://github.com/microsoft/learn-lti) Open Source Solution
+
+The project was extended as part of Microsoft and University College London Industry Exchange Network ([UCL IXN](https://www.ucl.ac.uk/computer-science/collaborate/ucl-industry-exchange-network-ucl-ixn)) by [Neha Ranade](https://github.com/neharanadee) under supervision of Dr. Graham Roberts (UCL) and Lee Stott (Microsoft) building of the [Microsoft Learn LTI](http://github.com/microsoft/learn-lti) Open Source Solution
 
 ## Key Features:
 
