@@ -15,20 +15,22 @@ export class AssessmentAppParserFactory{
 
         switch(key) { 
             case "A": { 
-                // opensource curriculum
+                // Assessment app native json format
                 this.parser = new OriginalAppParser(raw)
                break; 
             } 
             case "B": { 
-               //statements;
+               // Microsoft open source curriculum json format
                this.parser = new MicrosoftOSCParser(raw)
                break; 
             } 
             case "C": { 
+                // Moodle export format 
                 this.parser = new GiftParser(raw)
                break; 
             } 
             default : {
+                // Canvas export format
                 this.parser = new QTIParser(raw)
                 break;
             }
