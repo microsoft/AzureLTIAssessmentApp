@@ -60,8 +60,6 @@ export const UploadQuestionBanksComponent = (
             var questionBanks: ParsedQuestionBank[] = parser.questionbanks;
             
             for (let qb_id in questionBanks){
-                console.log("currenly looking at question bank"); 
-                console.log(qb_id); 
                 var questionBank:ParsedQuestionBank = questionBanks[qb_id]; 
                 const bank = await repositoryContext.createNewQuestionBank({
                     id: "",
@@ -91,7 +89,7 @@ export const UploadQuestionBanksComponent = (
         { key: 'A', text: 'Assessment App JSON'},
         { key: 'B', text: 'Microsoft Open Source Curriculum JSON ' },
         { key: 'C', text: 'GIFT Export'},
-        { key: 'D', text: 'QTI Zip Export' },
+        { key: 'D', text: 'QTI Export' },
     ];
 
     return(
