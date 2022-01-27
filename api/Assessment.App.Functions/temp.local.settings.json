@@ -1,0 +1,27 @@
+{
+    "IsEncrypted": false,
+    "Values": {
+      "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+      "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+      "AzureWebJobs.HttpExample.Disabled": "true",
+      "BaseApiUrl": "http://localhost:7071",
+      "RedirectUrl": "http://localhost:4280",
+      "KeyVaultUrl": "",
+      "EdnaLiteDevKey": "",
+      "EdnaKeyString": "",
+      "AzureAd:Instance": "",
+      "AzureAd:Domain": "",
+      "AzureAd:TenantId": "",
+      "AzureAd:ClientId": "",
+      "AzureAd:ClientSecret": ""
+    },
+    "Host": {
+      "LocalHttpPort": 7071,
+      "CORS": "*",
+      "CORSCredentials": false
+    },
+    "ConnectionStrings": {
+      "ReadPlatformData": "",
+      "ReadWritePlatformData": ""
+    }
+  }
