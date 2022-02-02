@@ -1,6 +1,3 @@
-import React, { DOMElement, HTMLAttributes } from "react";
-import { render } from "react-dom";
-import parse, { DOMNode, HTMLReactParserOptions } from "html-react-parser";
 import {
     ChoiceGroup,
     IChoiceGroupOption,
@@ -96,7 +93,7 @@ export const EditQuestionComponent = (
                     <Label style={{textAlign: "left"}}>Description</Label>
                 </Col>
                 <Col md={6}>
-                    {/* <TextField
+                    <TextField
                         id="question-description-input"
                         multiline
                         rows={2}
@@ -104,8 +101,7 @@ export const EditQuestionComponent = (
                         onChange={(_: any, newValue?: string) =>
                             setQuestion(q => ({...q, description: newValue || ''}))
                         }
-                    /> */}
-                    <>{parse(question.description)}</>
+                    />
 
                 </Col>
             </Row>
