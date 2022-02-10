@@ -51,7 +51,7 @@ export class GiftParser extends AssessmentAppParser{
                 const question: Question = {
                     id: "",
                     name: this.removeTags(stem.text),
-                    description: stem.text,
+                    description: this.removeTags(stem.text),
                     lastModified: new Date (),
                     options: ["True", "False"],
                     answer: ans? 0:1,
