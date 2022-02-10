@@ -1,4 +1,3 @@
-import React from "react";
 import {
     ChoiceGroup,
     IChoiceGroupOption,
@@ -14,6 +13,9 @@ import {Col, Container, Row} from "react-grid-system";
 
 const optionRootClass = mergeStyles({display: 'flex', alignItems: 'baseline'});
 const textFieldStyles: Partial<ITextFieldStyles> = {fieldGroup: {width: 350}};
+
+
+
 
 interface EditQuestionComponentProps {
     question: Question;
@@ -100,6 +102,24 @@ export const EditQuestionComponent = (
                             setQuestion(q => ({...q, description: newValue || ''}))
                         }
                     />
+
+                </Col>
+            </Row>
+            <br/>
+            <Row>
+                <Col md={2}>
+                    <Label style={{textAlign: "left"}}>Text format</Label>
+                </Col>
+                <Col md={6}>
+                    <TextField
+                        id="textType-input"
+                        rows={1}
+                        value={question.textType}
+                        onChange={(_: any, newValue?: string) =>
+                            setQuestion(q => ({...q, textType: newValue || ''}))
+                        }
+                    />
+
                 </Col>
             </Row>
             <br/>

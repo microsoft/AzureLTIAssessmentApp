@@ -26,7 +26,6 @@ export class QTIParser extends AssessmentAppParser{
                 continue; // As we currently only support MCQs
             }
             var questionText = currQuestion['presentation']['material']['mattext']['#text']; 
-            questionText = this.removeTags(questionText); // Clean any html tags
             questionText = questionText.split('\n')[1];
 
             // Get all options 
@@ -48,6 +47,7 @@ export class QTIParser extends AssessmentAppParser{
                             lastModified: new Date (),
                             options: answerTexts,
                             answer: correctAnswer,
+                            textType:currQuestion['presentation']['material']['mattext']['@_texttype'], 
                         }
             questions.push(question); 
 

@@ -10,5 +10,7 @@ namespace Assessment.App.Functions.Student.Dto
         public string Description { get; set; }
         public List<string> Options { get; set; }
         public int ChosenOption { get; set; }
+        
+        public string TextType{get;set;}
     }
 }

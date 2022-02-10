@@ -4,4 +4,5 @@ export interface StudentQuestion {
     description: string,
     options: string[],
     chosenOption: number,
+    textType:string, 
 }

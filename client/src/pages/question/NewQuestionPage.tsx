@@ -21,6 +21,7 @@ export const NewQuestionPage = () => {
         lastModified: new Date(),
         options: ['', ''],
         answer: -1,
+        textType:""
     });
     const {bankId} = useParams<NewQuestionPageParams>();
     const repositoryContext = React.useContext(RepositoryContext);
