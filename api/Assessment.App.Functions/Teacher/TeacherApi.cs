@@ -180,6 +180,8 @@ namespace Assessment.App.Functions.Teacher
                 Name = questionItem.Name,
                 Options = questionItem.Options,
                 LastModified = DateTime.UtcNow,
+                TextType = questionItem.TextType
+
             });
             return new OkObjectResult(new CreateQuestionResponse() {Id = id});
         }

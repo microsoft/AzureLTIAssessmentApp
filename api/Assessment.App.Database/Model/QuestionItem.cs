@@ -17,5 +17,7 @@ namespace Assessment.App.Database.Model
         public List<string> Options { get; set; }
         
         public int Answer { get; set; }
+
+        public string TextType{get;set;}
     }
 }

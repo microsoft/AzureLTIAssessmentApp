@@ -16,6 +16,7 @@ export class OriginalAppParser  extends AssessmentAppParser{
                 lastModified: new Date (),
                 options: rawQuestion.options,
                 answer: rawQuestion.answer,
+                textType: rawQuestion.textType
             }
             questions.push(question); 
         }

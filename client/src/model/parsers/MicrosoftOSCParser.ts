@@ -17,8 +17,6 @@ export class MicrosoftOSCParser extends AssessmentAppParser{
                         var answerTexts = Array(); 
                         var correctAnswer = 0;
                         var counter = 0;
-                        console.log("Read a new question"); 
-                        console.log(question.questionText);
                         for (let option of question.answerOptions){
                             answerTexts.push(option.answerText)
                             if (option.isCorrect == "true"){
@@ -35,6 +33,7 @@ export class MicrosoftOSCParser extends AssessmentAppParser{
                             lastModified: new Date (),
                             options: answerTexts,
                             answer: correctAnswer,
+                            textType:"text"
                         }
                         questions.push(questionToSave); 
                     }

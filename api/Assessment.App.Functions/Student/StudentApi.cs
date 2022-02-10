@@ -131,6 +131,7 @@ namespace Assessment.App.Functions.Student
                     Description = item.Description,
                     Options = item.Options,
                     ChosenOption = chosenOption,
+                    TextType=item.TextType
                 });
             }
 

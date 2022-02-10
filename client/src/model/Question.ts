@@ -5,4 +5,5 @@ export interface Question {
     lastModified: Date,
     options: string[],
     answer: number,
+    textType:string, 
 }

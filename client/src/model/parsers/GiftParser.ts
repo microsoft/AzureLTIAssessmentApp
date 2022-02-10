@@ -2,7 +2,6 @@ import { parse, GIFTQuestion, TextChoice, TextFormat } from "gift-pegjs";
 import { ParsedQuestionBank } from "./ParsedQuestionBank";
 import {  AssessmentAppParser } from "./Parser";
 import { Question } from "../Question";
-import * as React from "react";
 
 // Currently only parses in MCQs and TFs
 export class GiftParser extends AssessmentAppParser{
@@ -40,6 +39,7 @@ export class GiftParser extends AssessmentAppParser{
                     lastModified: new Date (),
                     options: answerTexts,
                     answer: correctAnswer,
+                    textType:stem.format
                 }
                 questions.push(question); 
 
@@ -51,10 +51,11 @@ export class GiftParser extends AssessmentAppParser{
                 const question: Question = {
                     id: "",
                     name: this.removeTags(stem.text),
-                    description: this.removeTags(stem.text),
+                    description: stem.text,
                     lastModified: new Date (),
                     options: ["True", "False"],
                     answer: ans? 0:1,
+                    textType:stem.format
                 }
                 questions.push(question); 
             }

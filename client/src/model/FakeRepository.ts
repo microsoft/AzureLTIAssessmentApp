@@ -188,6 +188,7 @@ export class FakeRepository implements IRepository {
                 lastModified: new Date(),
                 options: ["True", "False"],
                 answer: 0,
+                textType:"text",
             },
             '1': {
                 id: '1',
@@ -200,6 +201,7 @@ export class FakeRepository implements IRepository {
                     "Deep learning is used in robots",
                 ],
                 answer: 1,
+                textType:"text"
             },
             '2': {
                 id: '2',
@@ -212,6 +214,7 @@ export class FakeRepository implements IRepository {
                     "Both of the above",
                 ],
                 answer: 2,
+                textType:"text"
             },
             '3': {
                 id: '3',
@@ -225,6 +228,7 @@ export class FakeRepository implements IRepository {
                     "All of the above",
                 ],
                 answer: 3,
+                textType:"text"
             },
             '4': {
                 id: '4',
@@ -238,6 +242,7 @@ export class FakeRepository implements IRepository {
                     "Software Models",
                 ],
                 answer: 1,
+                textType:"text"
             },
             '5': {
                 id: '5',
@@ -251,6 +256,7 @@ export class FakeRepository implements IRepository {
                     "5",
                 ],
                 answer: 2,
+                textType:"text"
             },
             '6': {
                 id: '6',
@@ -264,6 +270,7 @@ export class FakeRepository implements IRepository {
                     "Self-regulation",
                 ],
                 answer: 0,
+                textType:"text"
             },
             '7': {
                 id: '7',
@@ -277,6 +284,7 @@ export class FakeRepository implements IRepository {
                     "All of the above",
                 ],
                 answer: 3,
+                textType:"text"
             },
             '8': {
                 id: '8',
@@ -290,6 +298,7 @@ export class FakeRepository implements IRepository {
                     "All of the above",
                 ],
                 answer: 3,
+                textType:"text"
             },
         }
     }
