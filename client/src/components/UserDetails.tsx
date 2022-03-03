@@ -1,7 +1,7 @@
 import React from 'react';
 import {Persona, PersonaSize} from '@fluentui/react';
 import {useMsal} from "@azure/msal-react";
-
+//checking
 export const UserDetails = () => {
     const {accounts} = useMsal();
 
