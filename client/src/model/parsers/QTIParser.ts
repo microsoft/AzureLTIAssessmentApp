@@ -25,7 +25,6 @@ export class QTIParser extends AssessmentAppParser{
 
         for (let questionId in questionsSection){
             var currQuestion = questionsSection[questionId]; 
-            console.log(currQuestion);
             // Get question title
             var questionTitle = currQuestion['@_title']; 
 
