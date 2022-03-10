@@ -30,8 +30,6 @@ export const NewQuestionPage = () => {
         return <p>Cannot create a new question</p>
     }
     const createQuestion = async () => {
-        console.log("You just created a question and it looks like this - it is going to be saved now"); 
-        console.log(question);
         await repositoryContext.saveNewQuestion(bankId, question);
         history.goBack();
     }
