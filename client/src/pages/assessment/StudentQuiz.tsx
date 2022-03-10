@@ -1,5 +1,4 @@
 import {PrimaryButton, Spinner} from '@fluentui/react';
-import * as React from 'react';
 import {useContext, useEffect, useState} from 'react';
 import {StudentQuestionComponent} from '../../components/StudentQuestionComponent';
 import {StudentQuestion} from '../../model/StudentQuestion';
@@ -8,7 +7,6 @@ import {useHistory, useParams} from 'react-router-dom';
 import {RepositoryContext} from "../../context/RepositoryContext";
 import {StudentAssessment} from "../../model/StudentAssessment";
 import {CountdownCircleTimer} from "react-countdown-circle-timer";
-import { Console } from 'console';
 
 interface StudentQuizParams {
     id: string,
@@ -28,8 +26,6 @@ export const StudentQuiz = () => {
                 return;
             }
             const questionsData = await repositoryContext.getStudentQuestions(id);
-            console.log("these are all the questions we got"); 
-            console.log(questionsData);
             setChosenOptions(Object.assign({}, ...questionsData.questions.map(q => ({[q.id]: q.chosenOption}))));
             setQuestions(questionsData.questions);
             setStudentAssessment(questionsData.assessment);
@@ -49,8 +45,6 @@ export const StudentQuiz = () => {
     }
 
     const finishAssessment = async () => {
-        console.log("When I am done I am sending this"); 
-        console.log(chosenOptions)
         await repositoryContext.submitStudentAssessment(id, chosenOptions);
         history.push(`/spa/student-welcome-page/${id}`);
     }
@@ -63,8 +57,6 @@ export const StudentQuiz = () => {
     console.log(studentAssessment.durationSeconds);
 
     const createQuestionComponent = (q: StudentQuestion) => {
-        console.log("loading question no");
-        console.log(q.id);
         return <StudentQuestionComponent
             key={q.id}
             question={q}
@@ -75,8 +67,6 @@ export const StudentQuiz = () => {
     const questionComponents = questions.map(createQuestionComponent);
     return (
         <>
-        {console.log("Currently chosen options is this")}
-        {console.log(chosenOptions)}
             <Header mainHeader="Assessment App" secondaryHeader="Quiz"/>
             {questionComponents}
             <PrimaryButton
