@@ -105,7 +105,7 @@ export const QuestionBankPage = () => {
     if (repositoryContext == null) {
         return <p>Question Bank cannot be found</p>
     }
-    const redirectToNewQuestion = () => {
+    const redirectToNewQuestion = () => { 
         history.push(`/spa/new-question/bank=${id}`);
     }
     const _items: ICommandBarItemProps[] = [

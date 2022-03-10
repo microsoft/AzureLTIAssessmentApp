@@ -22,7 +22,7 @@ export interface IRepository {
     getAssessmentStats(assessmentId: string): Promise<AssessmentStatistics>;
     getStudentAssessment(assessmentId: string): Promise<StudentAssessment>;
     getStudentQuestions(assessmentId: string): Promise<StudentAssessmentQuestions>;
-    submitStudentAssessment(assessmentId: string, chosenOptions: { [id: string]: number }): void;
+    submitStudentAssessment(assessmentId: string, chosenOptions: { [id: string]: string[] }): void;
     deleteQuestions(questionIds: string[]): void;
     deleteQuestionBanks(questionBankIds: string[]): void;
     isReady(): boolean;

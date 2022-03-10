@@ -140,7 +140,8 @@ export const AssessmentStatisticsComponent = (
                             incorrect: 0,
                         }
                     }
-                    if (value.chosenOption === question.answer) {
+                    var correctAnswers = new Set(question.answer)
+                    if (correctAnswers.has(value.chosenOption.toString())) {
                         data[questionId].correct += 1;
                     } else {
                         data[questionId].incorrect += 1;

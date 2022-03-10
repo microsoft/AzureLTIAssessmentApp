@@ -15,12 +15,12 @@ export class MicrosoftOSCParser extends AssessmentAppParser{
                 var questions:Question[] = [];
                     for (let question of rawQuestion.quiz){
                         var answerTexts = Array(); 
-                        var correctAnswer = 0;
+                        var correctAnswer = [];
                         var counter = 0;
                         for (let option of question.answerOptions){
                             answerTexts.push(option.answerText)
                             if (option.isCorrect == "true"){
-                                correctAnswer = counter ;
+                                correctAnswer.push(counter.toString());
                             }
                             counter = counter + 1;
         
@@ -28,12 +28,13 @@ export class MicrosoftOSCParser extends AssessmentAppParser{
     
                         const questionToSave: Question = {
                             id: "",
-                            name:  question.questionText,
+                            name: question.questionText,
                             description: question.questionText,
-                            lastModified: new Date (),
+                            lastModified: new Date(),
                             options: answerTexts,
                             answer: correctAnswer,
-                            textType:"text"
+                            textType: "text",
+                            questionType: "MCQ"
                         }
                         questions.push(questionToSave); 
                     }

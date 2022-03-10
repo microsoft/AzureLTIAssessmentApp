@@ -20,8 +20,9 @@ export const NewQuestionPage = () => {
         description: "",
         lastModified: new Date(),
         options: ['', ''],
-        answer: -1,
-        textType:""
+        answer: [],
+        textType:"",
+        questionType:"MCQ",
     });
     const {bankId} = useParams<NewQuestionPageParams>();
     const repositoryContext = React.useContext(RepositoryContext);
@@ -46,7 +47,7 @@ export const NewQuestionPage = () => {
                 padding: '10px',
                 boxShadow: theme.effects.elevation8
             }}>
-                <EditQuestionComponent question={question} setQuestion={setQuestion}/>
+                <EditQuestionComponent question={question}  setQuestion={setQuestion}/>
                 <Container style={{margin: '30px', position: 'relative'}}>
                     <Row>
                         <Col md={2}/>

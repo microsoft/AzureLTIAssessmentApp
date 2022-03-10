@@ -220,7 +220,7 @@ export class Repository implements IRepository {
     }
 
 
-    public async submitStudentAssessment(assessmentId: string, chosenOptions: { [id: string]: number }) {
+    public async submitStudentAssessment(assessmentId: string, chosenOptions: { [id: string]: string[] }) {
         const accessToken = await this.getAccessToken();
         const request: SubmitStudentAssessmentRequest = {
             responses: Object.entries(chosenOptions).reduce((a, item) => ({

@@ -2,6 +2,7 @@ import { ParsedQuestionBank } from "./ParsedQuestionBank";
 import { AssessmentAppParser } from "./Parser";
 import { Question } from "../Question";
 
+// Currently only supports MCQs and TFs
 export class OriginalAppParser  extends AssessmentAppParser{
    public parse() {
     const rawData = JSON.parse(this.raw);
@@ -13,10 +14,11 @@ export class OriginalAppParser  extends AssessmentAppParser{
                 id: "",
                 name: rawQuestion.name,
                 description: rawQuestion.description,
-                lastModified: new Date (),
+                lastModified: new Date(),
                 options: rawQuestion.options,
                 answer: rawQuestion.answer,
-                textType: rawQuestion.textType
+                textType: rawQuestion.textType,
+                questionType: rawQuestion.questionType
             }
             questions.push(question); 
         }
