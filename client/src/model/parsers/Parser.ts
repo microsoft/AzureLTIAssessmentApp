@@ -20,6 +20,7 @@ export class AssessmentAppParser {
         str = str.toString();
         str = str.replace( /(<([^>]+)>)/ig, '')
         str = str.replaceAll('\\n','')
+        str = str.replace(/\&nbsp;/g, "")
     return str;}
 
 }

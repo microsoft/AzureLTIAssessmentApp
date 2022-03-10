@@ -3,6 +3,7 @@ export interface StudentQuestion {
     name: string,
     description: string,
     options: string[],
-    chosenOption: number,
+    chosenOption: string[],
     textType:string, 
+    questionType:string
 }

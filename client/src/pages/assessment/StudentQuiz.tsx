@@ -8,6 +8,7 @@ import {useHistory, useParams} from 'react-router-dom';
 import {RepositoryContext} from "../../context/RepositoryContext";
 import {StudentAssessment} from "../../model/StudentAssessment";
 import {CountdownCircleTimer} from "react-countdown-circle-timer";
+import { Console } from 'console';
 
 interface StudentQuizParams {
     id: string,
@@ -17,7 +18,7 @@ export const StudentQuiz = () => {
     const {id} = useParams<StudentQuizParams>();
     const repositoryContext = useContext(RepositoryContext);
     const [questions, setQuestions] = useState<StudentQuestion[]>([])
-    const [chosenOptions, setChosenOptions] = useState<{ [id: string]: number }>({});
+    const [chosenOptions, setChosenOptions] = useState<{ [id: string]: any }>({});
     const [isLoaded, setIsLoaded] = useState(false);
     const [studentAssessment, setStudentAssessment] = useState<StudentAssessment | null>(null);
     const history = useHistory();
@@ -27,6 +28,8 @@ export const StudentQuiz = () => {
                 return;
             }
             const questionsData = await repositoryContext.getStudentQuestions(id);
+            console.log("these are all the questions we got"); 
+            console.log(questionsData);
             setChosenOptions(Object.assign({}, ...questionsData.questions.map(q => ({[q.id]: q.chosenOption}))));
             setQuestions(questionsData.questions);
             setStudentAssessment(questionsData.assessment);
@@ -46,6 +49,8 @@ export const StudentQuiz = () => {
     }
 
     const finishAssessment = async () => {
+        console.log("When I am done I am sending this"); 
+        console.log(chosenOptions)
         await repositoryContext.submitStudentAssessment(id, chosenOptions);
         history.push(`/spa/student-welcome-page/${id}`);
     }
@@ -58,6 +63,8 @@ export const StudentQuiz = () => {
     console.log(studentAssessment.durationSeconds);
 
     const createQuestionComponent = (q: StudentQuestion) => {
+        console.log("loading question no");
+        console.log(q.id);
         return <StudentQuestionComponent
             key={q.id}
             question={q}
@@ -68,6 +75,8 @@ export const StudentQuiz = () => {
     const questionComponents = questions.map(createQuestionComponent);
     return (
         <>
+        {console.log("Currently chosen options is this")}
+        {console.log(chosenOptions)}
             <Header mainHeader="Assessment App" secondaryHeader="Quiz"/>
             {questionComponents}
             <PrimaryButton

@@ -1,41 +1,45 @@
 import {
     ChoiceGroup,
-    DefaultButton,
     IChoiceGroupOption,
     IconButton,
     ITextFieldStyles,
     Label,
     mergeStyles,
     PrimaryButton,
-    TextField
+    TextField, 
+    Dropdown,
+    ICheckboxProps,
+    Checkbox,
 } from "@fluentui/react";
-import {Question} from "../model/Question";
 import {Col, Container, Row} from "react-grid-system";
-import { useState } from "react";
 
 const optionRootClass = mergeStyles({display: 'flex', alignItems: 'baseline'});
 const textFieldStyles: Partial<ITextFieldStyles> = {fieldGroup: {width: 350}};
 
-
-
-
 interface EditQuestionComponentProps {
-    question: Question;
-    setQuestion: (f: (oldValue: Question) => Question) => void;
+    question: any;
+    setQuestion: (f: (oldValue: any ) => any) => void;
 }
 
 
 export const EditQuestionComponent = (
     {question, setQuestion}: EditQuestionComponentProps
-) => {
-    const [isMCQ, setMCQ] = useState<boolean>(false);
-    const [isLA, setLA] = useState<boolean>(false);
-    const createOptions = (): IChoiceGroupOption[] => {
-        const createOneOption = (optionId: number): IChoiceGroupOption => {
+) => { 
+
+    const shouldCheckBoxBeChecked = (index:number):boolean => {
+        if (question.answer.find((x: string) => x === index.toString())){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    const createOptions = (): ICheckboxProps[] => {
+        const createOneOption = (optionId: number): ICheckboxProps => {
             return {
-                key: optionId.toString(),
-                text: '',
-                onRenderField: (props, render) => {
+                id: optionId.toString(),
+                onRenderLabel: (props, render) => {
                     return (
                         <div className={optionRootClass}>
                             {render!(props)}
@@ -63,34 +67,47 @@ export const EditQuestionComponent = (
                             />
                         </div>
                     )
-                }
+                },
+                onChange:  (ev?: React.FormEvent<HTMLElement | HTMLInputElement>, checked?: boolean) => {
+                    var previousArray:string[] = Object.assign([], question.answer)
+                    if (ev?.currentTarget.id !== undefined){
+                        if (checked){
+                            if (previousArray.includes(ev?.currentTarget.id) === false){
+                                previousArray.push(ev?.currentTarget.id)
+                            } 
+                        }
+                        else{
+                            const index = previousArray.indexOf(ev?.currentTarget.id, 0);
+                            if (index > -1) {
+                                previousArray.splice(index, 1);
+                            }
+                        }
+                    }
+                    setQuestion({...question, answer:previousArray})   
+                },
+                defaultChecked: shouldCheckBoxBeChecked(optionId)
             };
         };
         return question.options.map((_: any, index: number) => createOneOption(index));
     };
     const updateCorrectAnswer = (_: any, option?: IChoiceGroupOption) => {
-        var answer: number;
+        var answer: string[];
         if (option == null) {
-            answer = -1;
+            answer = [];
         } else {
-            answer = Number(option.key);
+            answer = [option.key.toString()];
         }
         setQuestion(q => ({...q, answer: answer}))
     }
 
-    function McqDisplay(isOn:boolean) {
-        // setLA(false); 
+    function mcqDisplay(isOn:boolean){
         if (isOn){
             return <> <Row>
             <Col md={2}>
                 <Label style={{ textAlign: "left" }}>Options</Label>
             </Col>
             <Col md={6}>
-                <ChoiceGroup
-                    options={createOptions()}
-                    required={true}
-                    selectedKey={`${question.answer}`}
-                    onChange={updateCorrectAnswer} />
+                {createOptions().map((value:ICheckboxProps , index: number) =>  <Checkbox {...value}/>)}
             </Col>
         </Row><br /><Row>
                 <Col md={2} />
@@ -101,53 +118,78 @@ export const EditQuestionComponent = (
                 </Col>
             </Row></>
         }
-        return <></>
-
     }
 
-    function LaDisplay(isOn:boolean){ 
+
+    function tfDisplay(isOn:Boolean){
         if (isOn){
-            return <Row>
+            return <> <Row>
+            <Col md={2}>
+                <Label style={{ textAlign: "left" }}>Options</Label>
+            </Col>
+            <Col md={6}>
+                <ChoiceGroup
+                    options={[{key:'0', text:'True'}, {key:'1', text:'False'}]}
+                    required={true}
+                    selectedKey={`${question.answer}`} 
+                    onChange={updateCorrectAnswer}/>
+            </Col>
+            </Row></>
+        }
+        return <></>
+    }
+
+    function qaDisplay(isOn:boolean){ 
+        if (isOn){
+            return <>
+            <Row>
                 <Col md={2}>
-                    <Label style={{textAlign: "left"}}>Answer</Label>
+                    <Label style={{textAlign: "left"}}>Correct answer/s</Label>
                 </Col>
                 <Col md={6}>
+                    {question.answer.map((_: any, index: number) => (  <>  
+                    <div className={optionRootClass}>
                     <TextField
-                        id="question-name-input"
-                        value={"Enter answer here"}
-                        onChange={(_: any, newValue?: string) =>
-                            setQuestion(q => ({...q, name: newValue || ''}))
-                        }
-                    />
+                        id={`question-answer-${index}`}
+                        styles={textFieldStyles}
+                        value={question.answer[index]}
+                        onChange={(_: any, newValue?: string) => setQuestion(q => {
+                            var result = { ...q, answer: [...q.answer] };
+                            result.answer[index] = newValue || '';
+                            return result;
+                        })} /><IconButton
+                            iconProps={{ iconName: "Delete" }}
+                            onClick={() => {
+                                setQuestion(q => {
+                                    let result = { ...q, answer: [...q.answer] };
+                                    result.answer.splice(index, 1);
+                                    return result;
+                                });
+                            } }
+                            disabled={question.answer.length <= 1} />
+                    </div>
+                    <br></br>
+                            </>))}
                 </Col>
             </Row>
+            <Row>
+                <Col md={2} />
+                <Col md={6}>
+                    <PrimaryButton text="Add answer" onClick={() => setQuestion(
+                        q => ({ ...q, answer: [...q.answer, ''] })
+                    )} />
+                </Col>
+            </Row>         
+            </>  
 
         }
         return <></>
-    }
-
-    function handleStates(type:String){
-        if (type === "MCQ" || type === "TF"){
-            if (isLA === true){
-                setLA((isLA) => !isLA);
-            }
-            if (isMCQ === true){
-                setMCQ((isMCQ) => !isMCQ); 
-            }
-            setMCQ((isMCQ) => !isMCQ); 
-        }
-        else if (type === "LA" || type === "SA"){
-            if (isMCQ === true){
-                setMCQ((isMCQ) => !isMCQ); 
-            }
-            setLA((isLA) => !isLA);
-        }
     }
 
     return (<Container style={{margin: '30px', position: 'relative'}}>
             <Row>
                 <Col md={2}>
-                    <Label style={{textAlign: "left"}}>Name</Label>
+                    <Label style={{textAlign: "left"}}>Question Name</Label>
                 </Col>
                 <Col md={6}>
                     <TextField
@@ -162,7 +204,7 @@ export const EditQuestionComponent = (
             <br/>
             <Row>
                 <Col md={2}>
-                    <Label style={{textAlign: "left"}}>Description</Label>
+                    <Label style={{textAlign: "left"}}>Question Description</Label>
                 </Col>
                 <Col md={6}>
                     <TextField
@@ -180,17 +222,13 @@ export const EditQuestionComponent = (
             <br/>
             <Row>
                 <Col md={2}>
-                    <Label style={{textAlign: "left"}}>Text format</Label>
+                    <Label style={{textAlign: "left"}}>Question format</Label>
                 </Col>
-                <Col md={6}>
-                    <TextField
-                        id="textType-input"
-                        rows={1}
-                        value={question.textType}
-                        onChange={(_: any, newValue?: string) =>
-                            setQuestion(q => ({...q, textType: newValue || ''}))
-                        }
-                    />
+                <Col md = {6}>
+                    <Dropdown 
+                        defaultSelectedKey={question.textType}
+                        options={[{text:"Text", key: 'text'}, {text:"HTML", key:'html'}]}  
+                        onChange={(_, key)=> setQuestion({...question, textType:key?.key})} />
                 </Col>
             </Row>
             <br/>
@@ -198,19 +236,17 @@ export const EditQuestionComponent = (
                 <Col md={2}>
                     <Label style={{textAlign: "left"}}>Question Type</Label>
                 </Col>
-                <Col md={2}> 
-                <DefaultButton target="_blank" onClick={() => handleStates("MCQ")} > Multiple Choice</DefaultButton>
-                </Col> 
-                <Col md={2}> 
-                <DefaultButton target="_blank" onClick={() => handleStates("TF")} > True or False</DefaultButton>
-                </Col> 
-                <Col md={2}> 
-                <DefaultButton target="_blank" onClick={() => handleStates("LA")}> Long/Short Answer</DefaultButton>
-                </Col> 
+                <Col md={6}>
+                <Dropdown 
+                        defaultSelectedKey={question.questionType}
+                        options={[{text:"Multiple Choice", key: 'MCQ'}, {text:"True/False", key:'TF'}, {text:"Question/Answer", key:'QA'}]}  
+                        onChange={(_, key)=> setQuestion({...question, questionType: key?.key.toString() || '', answer:[], options:[]})} />
+                </Col>
             </Row>
             <br/>
-            {McqDisplay(isMCQ)}
-            {LaDisplay(isLA)}
+            {mcqDisplay(question.questionType === "MCQ")}
+            {qaDisplay(question.questionType === "QA")}
+            {tfDisplay(question.questionType === "TF")}
         </Container>
     );
 }

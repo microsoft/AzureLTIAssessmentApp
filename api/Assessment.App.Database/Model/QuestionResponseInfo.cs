@@ -2,6 +2,6 @@
 {
     public class QuestionResponseInfo
     {
-        public int ChosenOption { get; set; }
+        public string[] ChosenOption { get; set; }
     }
 }

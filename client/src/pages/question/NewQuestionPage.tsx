@@ -20,8 +20,9 @@ export const NewQuestionPage = () => {
         description: "",
         lastModified: new Date(),
         options: ['', ''],
-        answer: -1,
-        textType:""
+        answer: [],
+        textType:"",
+        questionType:"MCQ",
     });
     const {bankId} = useParams<NewQuestionPageParams>();
     const repositoryContext = React.useContext(RepositoryContext);
@@ -29,6 +30,8 @@ export const NewQuestionPage = () => {
         return <p>Cannot create a new question</p>
     }
     const createQuestion = async () => {
+        console.log("You just created a question and it looks like this - it is going to be saved now"); 
+        console.log(question);
         await repositoryContext.saveNewQuestion(bankId, question);
         history.goBack();
     }
@@ -46,7 +49,7 @@ export const NewQuestionPage = () => {
                 padding: '10px',
                 boxShadow: theme.effects.elevation8
             }}>
-                <EditQuestionComponent question={question} setQuestion={setQuestion}/>
+                <EditQuestionComponent question={question}  setQuestion={setQuestion}/>
                 <Container style={{margin: '30px', position: 'relative'}}>
                     <Row>
                         <Col md={2}/>
