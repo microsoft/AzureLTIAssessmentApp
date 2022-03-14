@@ -15,6 +15,7 @@ export class GiftParser extends AssessmentAppParser{
         const quiz: GIFTQuestion[] = parse(this.raw)
         for (let question in quiz){ 
             var q: GIFTQuestion = quiz[question]
+            console.log(q);
             if (q.type === "Category"){
                 questionBankTitle =  q.title; 
             }
