@@ -2,12 +2,10 @@ import { XMLParser} from "fast-xml-parser";
 import { ParsedQuestionBank } from "./ParsedQuestionBank";
 import { AssessmentAppParser } from "./Parser";
 import { Question } from "../Question";
+import { questionTypeSpecificParse } from "./ParserHelper";
 
 
-interface questionTypeSpecificParse  {
-    correctAnswer:string[]
-    options:string[]
-};
+
 export class QTIParser extends AssessmentAppParser{
     options = {
         ignoreAttributes:false
