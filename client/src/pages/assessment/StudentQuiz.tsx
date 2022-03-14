@@ -1,5 +1,4 @@
 import {PrimaryButton, Spinner} from '@fluentui/react';
-import * as React from 'react';
 import {useContext, useEffect, useState} from 'react';
 import {StudentQuestionComponent} from '../../components/StudentQuestionComponent';
 import {StudentQuestion} from '../../model/StudentQuestion';
@@ -17,7 +16,7 @@ export const StudentQuiz = () => {
     const {id} = useParams<StudentQuizParams>();
     const repositoryContext = useContext(RepositoryContext);
     const [questions, setQuestions] = useState<StudentQuestion[]>([])
-    const [chosenOptions, setChosenOptions] = useState<{ [id: string]: number }>({});
+    const [chosenOptions, setChosenOptions] = useState<{ [id: string]: any }>({});
     const [isLoaded, setIsLoaded] = useState(false);
     const [studentAssessment, setStudentAssessment] = useState<StudentAssessment | null>(null);
     const history = useHistory();

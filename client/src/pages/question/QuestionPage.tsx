@@ -21,18 +21,20 @@ export const QuestionPage = () => {
         name: "",
         description: "",
         lastModified: new Date(),
-        options: ['', ''],
-        answer: -1,
-        textType:"text"
+        questionType: "",
+        answer: ['-1'],
+        textType:"text",
+        options:['', '']
     });
     const [savedQuestion, setSavedQuestion] = useState<Question>({
         id: "",
         name: "",
         description: "",
         lastModified: new Date(),
-        options: ['', ''],
-        answer: -1,
-        textType:"text"
+        questionType:"",
+        answer: [],
+        textType:"text",
+        options:['', '']
     })
     const {id} = useParams<QuestionPageParams>();
     const repositoryContext = React.useContext(RepositoryContext);

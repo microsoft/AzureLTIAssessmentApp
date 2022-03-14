@@ -187,8 +187,9 @@ export class FakeRepository implements IRepository {
                 description: "Applications of machine learning are all around us",
                 lastModified: new Date(),
                 options: ["True", "False"],
-                answer: 0,
+                answer: ['0'],
                 textType:"text",
+                questionType:"TF"
             },
             '1': {
                 id: '1',
@@ -200,8 +201,9 @@ export class FakeRepository implements IRepository {
                     "The use of neural networks",
                     "Deep learning is used in robots",
                 ],
-                answer: 1,
-                textType:"text"
+                answer: ['1'],
+                textType:"text", 
+                questionType:"MCQ",
             },
             '2': {
                 id: '2',
@@ -213,8 +215,9 @@ export class FakeRepository implements IRepository {
                     "To customise a shopping experience based on the type of the customer",
                     "Both of the above",
                 ],
-                answer: 2,
-                textType:"text"
+                answer: ['2'],
+                textType:"text", 
+                questionType:"MCQ"
             },
             '3': {
                 id: '3',
@@ -227,8 +230,9 @@ export class FakeRepository implements IRepository {
                     "Documentations",
                     "All of the above",
                 ],
-                answer: 3,
-                textType:"text"
+                answer: ['3'],
+                textType:"text", 
+                questionType:"MCQ",
             },
             '4': {
                 id: '4',
@@ -241,8 +245,9 @@ export class FakeRepository implements IRepository {
                     "System Models",
                     "Software Models",
                 ],
-                answer: 1,
-                textType:"text"
+                answer: ['1'],
+                textType:"text", 
+                questionType:"MCQ"
             },
             '5': {
                 id: '5',
@@ -255,8 +260,9 @@ export class FakeRepository implements IRepository {
                     "3",
                     "5",
                 ],
-                answer: 2,
-                textType:"text"
+                answer: ['2'],
+                textType:"text", 
+                questionType:"MCQ"
             },
             '6': {
                 id: '6',
@@ -269,8 +275,9 @@ export class FakeRepository implements IRepository {
                     "Increasing complexity",
                     "Self-regulation",
                 ],
-                answer: 0,
-                textType:"text"
+                answer:['0'],
+                textType:"text", 
+                questionType:"MCQ"
             },
             '7': {
                 id: '7',
@@ -283,8 +290,9 @@ export class FakeRepository implements IRepository {
                     "Maintenance",
                     "All of the above",
                 ],
-                answer: 3,
-                textType:"text"
+                answer: ['3'],
+                textType:"text", 
+                questionType:"MCQ"
             },
             '8': {
                 id: '8',
@@ -297,8 +305,9 @@ export class FakeRepository implements IRepository {
                     "Software Quality Management",
                     "All of the above",
                 ],
-                answer: 3,
-                textType:"text"
+                answer: ['3'],
+                textType:"text", 
+                questionType:"MCQ"
             },
         }
     }
@@ -363,7 +372,7 @@ export class FakeRepository implements IRepository {
         throw new Error("Not implemented");
     }
 
-    public async submitStudentAssessment(assessmentId: string, chosenOptions: { [id: string]: number }) {}
+    public async submitStudentAssessment(assessmentId: string, chosenOptions: { [id: string]: string[] }) {}
 
     public isReady(): boolean {
         return true;

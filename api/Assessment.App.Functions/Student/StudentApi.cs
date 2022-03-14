@@ -118,7 +118,7 @@ namespace Assessment.App.Functions.Student
             foreach (var questionId in assessmentItem.QuestionIds)
             {
                 var item = questionItems[questionId];
-                var chosenOption = -1;
+                string[] chosenOption = new string[]{};
                 if (studentResponse.Responses.TryGetValue(questionId, out var responseInfo))
                 {
                     chosenOption = responseInfo.ChosenOption;
@@ -131,7 +131,8 @@ namespace Assessment.App.Functions.Student
                     Description = item.Description,
                     Options = item.Options,
                     ChosenOption = chosenOption,
-                    TextType=item.TextType
+                    TextType=item.TextType, 
+                    QuestionType = item.QuestionType
                 });
             }
 
@@ -177,10 +178,13 @@ namespace Assessment.App.Functions.Student
             {
                 if (requestData.Responses.TryGetValue(questionId, out var responseInfo))
                 {
-                    if (responseInfo.ChosenOption == questionItems[questionId].Answer)
-                    {
-                        correctAnswers += 1;
-                    }
+                    var questionType = questionItems[questionId].QuestionType; 
+                    var studentAns = responseInfo.ChosenOption; 
+                    studentAns = studentAns.Select(s => s.ToLowerInvariant()).ToArray();
+                    var correctAns = questionItems[questionId].Answer;
+                    correctAns = correctAns.ConvertAll(d => d.ToLower());
+                    var res = getResult(studentAns, correctAns.ToArray(), questionType);
+                    correctAnswers = correctAnswers + res;
                 }
             }
 
@@ -224,6 +228,28 @@ namespace Assessment.App.Functions.Student
             }
 
             return result;
+        }
+
+        private static int getResult(string[] studentResponse, string[] correctAns, string questionType){
+            if (questionType == "MCQ" || questionType == "TF"){
+                Array.Sort(studentResponse);
+                Array.Sort(correctAns);
+                if (studentResponse.SequenceEqual(correctAns)){
+                    return 1;
+                }
+                else{
+                    return 0;
+                }
+            }
+            if (questionType == "QA"){
+                foreach(string answer in studentResponse ){
+                    if (correctAns.Contains(answer)){
+                        return 1;
+                    }
+                }
+                return 0; 
+            }
+            return 0;
         }
     } 
 }

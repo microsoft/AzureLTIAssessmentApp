@@ -1,3 +1,3 @@
 export interface QuestionResponseInfo {
-    chosenOption: number,
+    chosenOption: string[],
 }
