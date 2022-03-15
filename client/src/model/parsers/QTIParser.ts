@@ -16,69 +16,80 @@ export class QTIParser extends AssessmentAppParser{
         var questions:Question[] = [];
 
         const xmlParser: XMLParser = new XMLParser(this.options);
-        var parsedInput = xmlParser.parse(this.raw); 
-        var assessment = parsedInput['questestinterop']['assessment']; 
-        questionBankTitle = assessment['@_title']; 
-        var questionsSection = assessment['section']['item']
-
-        for (let questionId in questionsSection){
-            var currQuestion = questionsSection[questionId]; 
-            // Get question title
-            var questionTitle = currQuestion['@_title']; 
-
-            // Get question type
-            var qMetaDataField = currQuestion['itemmetadata']['qtimetadata']['qtimetadatafield']; 
-            var metaData = qMetaDataField[0]; // 0 position contains question type
-            var questionType = 'NA'; 
-
-            // Get question description
-            var questionText = currQuestion['presentation']['material']['mattext']['#text']; 
-
-            // Get text type
-            var cleanedTextType:string = 'text'
-            if (currQuestion['presentation']['material']['mattext']['@_texttype'] === "text/html"){
-                cleanedTextType = "html";
+        try{
+            var parsedInput = xmlParser.parse(this.raw); 
+            var assessment = parsedInput['questestinterop']['assessment']; 
+            questionBankTitle = assessment['@_title']; 
+            var questionsSection = assessment['section']['item']
+    
+            for (let questionId in questionsSection){
+                var currQuestion = questionsSection[questionId]; 
+                // Get question title
+                var questionTitle = currQuestion['@_title']; 
+    
+                // Get question type
+                var qMetaDataField = currQuestion['itemmetadata']['qtimetadata']['qtimetadatafield']; 
+                var metaData = qMetaDataField[0]; // 0 position contains question type
+                var questionType = 'NA'; 
+    
+                // Get question description
+                var questionText = currQuestion['presentation']['material']['mattext']['#text']; 
+    
+                // Get text type
+                var cleanedTextType:string = 'text'
+                if (currQuestion['presentation']['material']['mattext']['@_texttype'] === "text/html"){
+                    cleanedTextType = "html";
+                }
+                // Get answer and options
+    
+                var result:questionTypeSpecificParse = {options:[], correctAnswer:[]}
+                if (metaData['fieldentry'] === 'multiple_choice_question' ){
+                    result = this.parseMCQ(currQuestion);
+                    questionType = "MCQ";
+                }
+                else if (metaData['fieldentry'] === 'true_false_question'){
+                    result = this.parseMCQ(currQuestion);
+                    questionType = "TF";
+                }
+                else if (metaData['fieldentry'] === 'multiple_answers_question'){
+                    result= this.parseMAQ(currQuestion);
+                    questionType = "MCQ";
+                }
+                else if (metaData['fieldentry'] === 'numerical_question'){
+                    result= this.parseQA(currQuestion); 
+                    questionType = "QA"
+                }
+                else{
+                    continue;
+                }
+    
+                const question:Question = {
+                    id: "",
+                    name: questionTitle,
+                    description: questionText,
+                    lastModified: new Date(),
+                    options: result.options,
+                    answer: result.correctAnswer,
+                    textType: cleanedTextType,
+                    questionType: questionType
+                }
+                questions.push(question); 
             }
-            // Get answer and options
+            var qb: ParsedQuestionBank = {
+                questionBankTitle: questionBankTitle, 
+                questions:questions    
+            };
+            this.questionbanks.push(qb); 
 
-            var result:questionTypeSpecificParse = {options:[], correctAnswer:[]}
-            if (metaData['fieldentry'] === 'multiple_choice_question' ){
-                result = this.parseMCQ(currQuestion);
-                questionType = "MCQ";
-            }
-            else if (metaData['fieldentry'] === 'true_false_question'){
-                result = this.parseMCQ(currQuestion);
-                questionType = "TF";
-            }
-            else if (metaData['fieldentry'] === 'multiple_answers_question'){
-                result= this.parseMAQ(currQuestion);
-                questionType = "MCQ";
-            }
-            else if (metaData['fieldentry'] === 'numerical_question'){
-                result= this.parseQA(currQuestion); 
-                questionType = "QA"
+        }
+        catch (err){
+            if (err instanceof Error){
+                throw new Error(err.message); 
             }
             else{
-                continue;
+                throw new Error("File was in invalid QTI format");
             }
-
-            const question:Question = {
-                id: "",
-                name: questionTitle,
-                description: questionText,
-                lastModified: new Date(),
-                options: result.options,
-                answer: result.correctAnswer,
-                textType: cleanedTextType,
-                questionType: questionType
-            }
-            questions.push(question); 
-        }
-        var qb: ParsedQuestionBank = {
-            questionBankTitle: questionBankTitle, 
-            questions:questions    
-        };
-        this.questionbanks.push(qb); 
+        }  
 
     }
 

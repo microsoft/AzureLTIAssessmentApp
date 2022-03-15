@@ -10,67 +10,80 @@ export class GiftParser extends AssessmentAppParser{
     public parse(): void {
         var questionBankTitle:string = "Not defined yet"; 
         var questions:Question[] = [];
-
-        const quiz: GIFTQuestion[] = parse(this.raw)
-        for (let question in quiz){ 
-            var q: GIFTQuestion = quiz[question]
-            console.log(q);
-            if (q.type === "Category"){
-                questionBankTitle =  q.title; 
-            }
-            else{
-                var stem:TextFormat  = q.stem;
-                var answerTexts:string[] = []; 
-                var correctAnswers:string[] = [] 
-                var questionType:string = '';
-                var results:questionTypeSpecificParse = {options:[], correctAnswer:[]}
-
-                if (q.type === "MC"){
-                    questionType = "MCQ"; 
-                    results = this.getMCQ(q); 
-                   
-                }
-                else if(q.type === "TF"){
-                    questionType = "MCQ"; 
-                    results = this.getTF(q); 
-
-                }
-                else if (q.type === "Short"){
-                    questionType = "QA"; 
-                    results = this.getShort(q); 
-                }
-                else if (q.type === "Numerical"){
-                    questionType = "QA"; 
-                    results = this.getNumerical(q); 
+        try{
+            const quiz: GIFTQuestion[] = parse(this.raw);
+            for (let question in quiz){ 
+                var q: GIFTQuestion = quiz[question]
+                console.log(q);
+                if (q.type === "Category"){
+                    questionBankTitle =  q.title; 
                 }
                 else{
-                    continue;
+                    var stem:TextFormat  = q.stem;
+                    var answerTexts:string[] = []; 
+                    var correctAnswers:string[] = [] 
+                    var questionType:string = '';
+                    var results:questionTypeSpecificParse = {options:[], correctAnswer:[]}
+    
+                    if (q.type === "MC"){
+                        questionType = "MCQ"; 
+                        results = this.getMCQ(q); 
+                       
+                    }
+                    else if(q.type === "TF"){
+                        questionType = "MCQ"; 
+                        results = this.getTF(q); 
+    
+                    }
+                    else if (q.type === "Short"){
+                        questionType = "QA"; 
+                        results = this.getShort(q); 
+                    }
+                    else if (q.type === "Numerical"){
+                        questionType = "QA"; 
+                        results = this.getNumerical(q); 
+                    }
+                    else{
+                        continue;
+                    }
+                    correctAnswers = results.correctAnswer; 
+                    answerTexts = results.options;
+    
+                    const question: Question = {
+                        id: "",
+                        name: this.removeTags(stem.text),
+                        description: this.removeTags(stem.text),
+                        lastModified: new Date (),
+                        options: answerTexts,
+                        answer: correctAnswers,
+                        textType:stem.format,
+                        questionType: questionType,
+                    }
+                    questions.push(question); 
+    
+    
+    
                 }
-                correctAnswers = results.correctAnswer; 
-                answerTexts = results.options;
-
-                const question: Question = {
-                    id: "",
-                    name: this.removeTags(stem.text),
-                    description: this.removeTags(stem.text),
-                    lastModified: new Date (),
-                    options: answerTexts,
-                    answer: correctAnswers,
-                    textType:stem.format,
-                    questionType: questionType,
-                }
-                questions.push(question); 
-
-
-
             }
+    
+            var qb: ParsedQuestionBank = {
+                questionBankTitle: questionBankTitle, 
+                questions:questions    
+            };
+            this.questionbanks.push(qb); 
         }
-
-        var qb: ParsedQuestionBank = {
-            questionBankTitle: questionBankTitle, 
-            questions:questions    
-        };
-        this.questionbanks.push(qb); 
+        catch (err)
+        {
+            if (err instanceof Error){
+                throw new Error(err.message); 
+            }
+            else{
+                throw new Error("Thie file could not be parsed by the GIFT parser");
+            }
+           
+        }
+        
+       
     }
 
 

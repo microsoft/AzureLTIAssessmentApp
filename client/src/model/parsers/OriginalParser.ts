@@ -5,32 +5,40 @@ import { Question } from "../Question";
 // Currently only supports MCQs and TFs
 export class OriginalAppParser  extends AssessmentAppParser{
    public parse() {
-    const rawData = JSON.parse(this.raw);
-    for (let rawBank of rawData) {
-        var questions:Question[] = [];
-        for (let rawQuestion of rawBank.questions) {
+    try {
+        const rawData = JSON.parse(this.raw);
+        for (let rawBank of rawData) {
+            var questions:Question[] = [];
+            for (let rawQuestion of rawBank.questions) {
 
-            const question: Question = {
-                id: "",
-                name: rawQuestion.name,
-                description: rawQuestion.description,
-                lastModified: new Date(),
-                options: rawQuestion.options,
-                answer: rawQuestion.answer,
-                textType: rawQuestion.textType,
-                questionType: rawQuestion.questionType
+                const question: Question = {
+                    id: "",
+                    name: rawQuestion.name,
+                    description: rawQuestion.description,
+                    lastModified: new Date(),
+                    options: rawQuestion.options,
+                    answer: rawQuestion.answer,
+                    textType: rawQuestion.textType,
+                    questionType: rawQuestion.questionType
+                }
+                questions.push(question); 
             }
-            questions.push(question); 
-        }
 
-        var qb: ParsedQuestionBank = {
-            questionBankTitle: rawBank.name, 
-            questions:questions    
-        };
-        this.questionbanks.push(qb); 
+            var qb: ParsedQuestionBank = {
+                questionBankTitle: rawBank.name, 
+                questions:questions    
+            };
+            this.questionbanks.push(qb); 
+        }    
+   }
+   catch (err){
+    if (err instanceof Error){
+        throw new Error(err.message); 
+    }
+    else{
+        throw new Error("Invalid JSON format")
+        }
     }
 
-   }
-
-}
+}}
 

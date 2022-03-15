@@ -56,30 +56,44 @@ export const UploadQuestionBanksComponent = (
             }
             var parserFactory = new AssessmentAppParserFactory(text.toString(), selectedOption.key); 
             var parser = parserFactory.parser; 
-            parser.parse(); 
-            var questionBanks: ParsedQuestionBank[] = parser.questionbanks;
+            try{
+                parser.parse(); 
+                var questionBanks: ParsedQuestionBank[] = parser.questionbanks;
             
-            for (let qb_id in questionBanks){
-                var questionBank:ParsedQuestionBank = questionBanks[qb_id]; 
-                const bank = await repositoryContext.createNewQuestionBank({
-                    id: "",
-                    name: questionBank.questionBankTitle,
-                    description: "",
-                    lastModified: new Date(),
-                    questionIds: [],
-                    assessmentType: "",
-                });
-    
-                const questions:Question[] = questionBank.questions; 
-                for (let questionId in questions){
-                    await repositoryContext.saveNewQuestion(bank.id, questions[questionId])
+                for (let qb_id in questionBanks){
+                    var questionBank:ParsedQuestionBank = questionBanks[qb_id]; 
+                    const bank = await repositoryContext.createNewQuestionBank({
+                        id: "",
+                        name: questionBank.questionBankTitle,
+                        description: "",
+                        lastModified: new Date(),
+                        questionIds: [],
+                        assessmentType: "",
+                    });
+        
+                    const questions:Question[] = questionBank.questions; 
+                    for (let questionId in questions){
+                        await repositoryContext.saveNewQuestion(bank.id, questions[questionId])
+                    }
                 }
-
-
+                onFinish(true);
+                setInProgress(false);
             }
+            catch (err){
+                if (err instanceof Error) {
+                    alert(err.message);
+                }
+                else{
+                    alert("Could not parse the file");
+                }
+                onFinish(false);
+                setInProgress(false);
+                
+            }
+            
+          
 
-            onFinish(true);
-            setInProgress(false);
+            
         }
         reader.readAsText(selectedFile);
     };
