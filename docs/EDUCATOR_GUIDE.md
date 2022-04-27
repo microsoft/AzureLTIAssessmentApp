@@ -1,14 +1,49 @@
 # Educator Guide
 
-This guide is designed for educators who use [Moodle LMS](https://moodle.org/).
+This guide is designed for educators who use [Moodle LMS](https://moodle.org/) and [Canvas LMS](https://learn.canvas.net/login/canvas).
 
 ## Table of content
 1. [How to create an assessment on Moodle using the Assessment App](#create-assessment)
-2. [How to set up an assessment in the Assessment App](#assessment-setup)
-3. [How to create a new question bank](#create-question-bank)
-4. [How to create a new question](#create-question)
-5. [How to import and export question banks](#import-export-question-banks)
-6. [How to browse Assessment Analytics](#assessment-analytics)
+2. [How to create an assessment on Canvas using the Assessment App](#create-assessment-canvas)
+3. [How to set up an assessment in the Assessment App](#assessment-setup)
+4. [How to create a new question bank](#create-question-bank)
+5. [How to create a new question](#create-question)
+6. [How to import and export question banks](#import-export-question-banks)
+7. [How to browse Assessment Analytics](#assessment-analytics)
+
+## How to create an assessment on Canvas using the Assessment App <a name="create-assessment-canvas"/>
+
+To begin, you need to login to Canvas LMS and follow the steps:
+
+1. Pick the course where you would like to create an assessment.
+
+![createassessment](../images/Educator.Canvas.1.PNG)
+
+2. Verify that the Assessment Application has been added as an external tool within this course by going to settings. If it hasn't, request the LMS admin to follow the [configuration guide](../docs/CONFIGURATION_GUIDE.md)
+
+![verification](../images/Educator.Canvas.7.PNG)
+
+3. Go to the Assignments section of the course and click **+ Assignment**.
+
+![assignments](../images/Educator.Canvas.2.PNG)
+
+4. Enter title to the assignment.
+
+![addtitle](../images/Educator.Canvas.3.PNG)
+
+5. Change **Points** to 100. Change **Display Grade as** to Percentage. Verify **Assignment Group** is set to Assignments
+
+![assessmenttool](../images/Educator.Canvas.4.PNG)
+
+6. Change the submission type to **External Tool**. Click on **Find**. Select the assessment application from the list of external tools. Tick the **Load This Tool In A New Tab** checkbox. Click on **Save**.
+
+![turnoffediting](../images/Educator.Canvas.5.PNG)
+
+7. Click **Save and Publish**.
+
+![createdassessment](../images/Educator.Canvas.6.PNG)
+
+The assessment should be created. You will be redirected to the assessment page, where you have to click on "Load Assessment In A New Window".  This will direct you to the Assessment App, where you can configure the created assessment: choose the deadline, assessment duration, questions and participants.
 
 ## How to create an assessment on Moodle using the Assessment App <a name="create-assessment"/>
 
@@ -118,15 +153,21 @@ Here is an example of how the downloaded question bank might look like:
     "questions":[
         {"name":"Applications of machine learning",
         "description":"Applications of machine learning are all around us",
-        "options":["True","False"],"answer":0},
+        "options":["True","False"],"answer":["0"],"textType": "text", "questionType":"MCQ"
         {"name":"Machine learning algorithms",
         "description":"Machine learning algorithms are meant to simulate",
         "options":["intelligent machines","the human brain","orangutans"],
-        "answer":1},
+        "answer":["0"], "textType": "text", "questionType":"MCQ"},
         {"name":"Example of a classical ML technique?",
         "description":"What is an example of a classical ML technique?",
         "options":["natural language processing","deep learning","neural networks"],
-        "answer":0},
+        "answer":["0"], "textType": "text", "questionType":"MCQ"},
+        {"name": "Examples of machine language techniques", 
+        "description": "Which of the following are machine language techniques", 
+        "options": ["Linear Regression", "Log Functions", "Random Forest"], 
+        "answer": ["0", "2"], 
+        "textType": "text", 
+        "questionType": "MCQ"}
     "assessmentType":"Quiz"
 }]
 ```
@@ -138,7 +179,48 @@ Click **Upload** on the top of the Home page. You will see a dialog window where
 ![selectqbtoupload](../images/selectqbtoupload.png)
 
 The question bank will appear in the list of question banks. 
-Please, note that currently, the Assessment App supports question banks only in JSON format. 
+There are currently four different question bank formats that are supported by the Assessment Application. 
+
+1. QTI format - This format is questions banks being imported from Canvas, which can be exported in QTI format. More information can be found [here](https://www.imsglobal.org/activity/qtiapip#:~:text=QTI%20is%20an%20open%20format,2.2%20and%20APIP%20version%201.1.)
+2. GIFT format - This format is for question banks being imported from Moodle, which can be exported in GIFT format. More information can be found [here](https://docs.moodle.org/311/en/GIFT_format#:~:text=GIFT%20format%20allows%20someone%20to,format%20available%20in%20Question%20bank.)
+3. Microsoft Open Source Curriculum quiz format - This format is for questions from the Microsoft Open Source Curriculum quizzes. More information can be found [here](https://docs.moodle.org/311/GIFT_format#:~:text=GIFT%20format%20allows%20someone%20to,format%20available%20in%20Question%20bank.)
+4. Assessment Application JSON format - This format is native to the assessment app and can be used if an Educator wishes to upload their questions via JSON format. The following JSON format must be followed. The following example shows one True/False question. 
+```
+[{
+    "name":"Introduction to Machine Learning",
+    "description":"Machine Learning for Beginners (Microsoft)",
+    "questions":[
+        {"name":"Applications of machine learning",
+        "description":"Applications of machine learning are all around us",
+        "options":["True","False"],"answer":["0"],"textType": "text", "questionType":"MCQ"
+    "assessmentType":"Quiz"
+}]
+```
+Please consider the following keys for the **questionType** attribute of the JSON. 
+If the question is of type True/False or Multiple Choice, questionType="MCQ". 
+If the question is of type Long answer/Short Answer, questiponType="QA"
+
+Please consider the following keys for the **textType** attribute of the JSON. 
+TextType indicates whether the question entered contains HTML embeddings or not. Some question banks exports such as those from Moodle LMS(GIFT), use HTML embeddings - and in that case the textType will be set to "html". In most cases, the textType should be set to "text". 
+
+Please consider the following information about the **Description** attribute of the JSON
+This attribute should describe the entire question as this will be shown to students before showing them the options/textbox. 
+
+Please consider the following information about the **Name** attribute of the JSON
+This attribute is for convenience purposes for the Educator, as they can get a quick summary of the question by looking at the Name, especially in the Question Bank view. 
+
+
+## What are the different question types supported <a name="question-type"/>
+1. Multiple Correct Answer - Educators can set a question description with multiple correct options for student to pick from. Student can select one or more correct options that they deem appropriate.  
+How is this marked? 
+Educators need to provide one or more correct answers to the question. Only if the student selects all provided answers do they receieve full on this question (score of 1), else 0. 
+2. True/False questions- Similar to Multiple Correct Answers, but the options are set to True and False. 
+How is this marked? 
+Educators need to provide the correc answer to this. Only if the student selects the correct answer, do they receive full on this question (score of 1), else 0. 
+3. Long/Short Answer - Educators can provide a question description, and students get to enter correct answers.
+How is this marked? 
+Educators can provide one or more correct answers to this question. If any of the correct answers match with the answer provided by the student, the student receives a full score (score of 1), else 0.  
+
 
 ## How to browse the Assessment Analytics <a name="assessment-analytics"/>
 
