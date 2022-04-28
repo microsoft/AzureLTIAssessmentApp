@@ -1,0 +1,56 @@
+// question: 0  name: Switch category to $course$/top/Default for VW 101
+$CATEGORY: $course$/top/Default for VW 101
+
+
+// question: 1356  name: Issue summary
+::Issue summary::[html]<p dir\="ltr" style\="text-align\: left;">Write a summary of the main issues, using a minimum of 100 words and a maximum of 650 words. Make sure to include your chosen image.</p>{}
+
+
+// question: 1357  name: Summarise the issues
+::Summarise the issues::[html]<p dir\="ltr" style\="text-align\: left;">trrtrt</p>{}
+
+
+// question: 1358  name: ts
+::ts::[html]<p dir\="ltr" style\="text-align\: left;">asd</p>{}
+
+
+// question: 1351  name: Queen V
+::Queen V::[html]<p dir\="ltr" style\="text-align\: left;">Queen Victoria said the role of women should be...</p>{
+	=<p dir\="ltr" style\="text-align\: left;">as a helpmate for man</p>
+	~<p dir\="ltr" style\="text-align\: left;">as an equal to man</p>
+	~<p dir\="ltr" style\="text-align\: left;">as a superior to man</p>
+}
+
+
+// question: 1353  name: Sophia Duleep Singh, the “princess suffragette” was the daughter of:
+::Sophia Duleep Singh, the “princess suffragette” was the daughter of\:::[html]<p dir\="ltr" style\="text-align\: left;">Sophia Duleep Singh, the “princess suffragette” was the daughter of\:</p>{
+	~Queen Victoria
+	=<p dir\="ltr" style\="text-align\: left;">an Indian Maharaja</p>
+	~<p dir\="ltr" style\="text-align\: left;">Emmeline Pankhurst</p>
+}
+
+
+// question: 1352  name: The first woman elected to the British parliament was
+::The first woman elected to the British parliament was::[html]<p dir\="ltr" style\="text-align\: left;">The first woman elected to the British parliament was...</p>{
+	~<p dir\="ltr" style\="text-align\: left;">Nancy Astor</p>#Wrong!I thought that for years but in fact it is untrue.
+	=<p dir\="ltr" style\="text-align\: left;">Constance Marciewicz</p>#Correct! She was the first woman elected but did not take her seat. (Nancy Astor was the first woman to take her seat in Parliament.)
+	~<p dir\="ltr" style\="text-align\: left;">Emmeline Pankhurst</p>
+}
+
+
+// question: 1355  name: When did all American women
+::When did all American women::[html]<p dir\="ltr" style\="text-align\: left;">When did all American women finally get the vote?</p>{
+	=<p dir\="ltr" style\="text-align\: left;">1920</p>
+	~<p dir\="ltr" style\="text-align\: left;">1918</p>
+	~<p dir\="ltr" style\="text-align\: left;">1928</p>
+}
+
+
+// question: 1354  name: When did all British women
+::When did all British women::[html]<p dir\="ltr" style\="text-align\: left;">When did all British women finally get the vote?</p>{
+	~<p dir\="ltr" style\="text-align\: left;">1918</p>
+	~<p dir\="ltr" style\="text-align\: left;">1924</p>
+	=<p dir\="ltr" style\="text-align\: left;">1928</p>
+}
+
+

@@ -1,0 +1,19 @@
+[{
+    "name":"Introduction to Machine Learning",
+    "description":"Machine Learning for Beginners (Microsoft)",
+    "questions":[
+        {"name":"Applications of machine learning",
+        "description":"Applications of machine learning are all around us",
+        "options":["True","False"],"answer":["0"], "textType":"text", "questionType": "TF"},
+        {"name":"Machine learning algorithms",
+        "description":"Machine learning algorithms are meant to simulate",
+        "options":["intelligent machines","the human brain","orangutans"],
+        "answer":["1"], "textType":"text", "questionType": "MCQ"},
+        {"name":"Example of a classical ML technique?",
+        "description":"What is an example of a classical ML technique?",
+        "options":["natural language processing","deep learning","neural networks"],
+        "answer":["0"], "textType":"text", "questionType": "MCQ"},
+        {"name": "What is the best machine learning for classification", 
+         "answer": ["Sklearn"], "textType": "text", "questionType": "SA"}],
+    "assessmentType":"Quiz"
+}]

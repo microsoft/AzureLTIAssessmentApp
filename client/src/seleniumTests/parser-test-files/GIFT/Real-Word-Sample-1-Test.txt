@@ -1,0 +1,41 @@
+// question: 0  name: Switch category to $course$/top/Default for History: Russia Rev
+$CATEGORY: $course$/top/Default for History: Russia Rev
+
+
+// question: 610  name: mc
+::mc::[html]<p>Which group joined the February revolution which the video identifies as a key turning point?</p>\n<p><a href\="http\://www.youtube.com/watch?v\=mMGrIwLj7gU">http\://www.youtube.com/watch?v\=mMGrIwLj7gU</a></p>{
+	=<p>The Cossacks</p>
+	~<p>The students</p>
+	~<p>The police</p>
+	~<p>The peasants</p>
+}
+
+
+// question: 612  name: mcp
+::mcp::[html]<p>What important event in 1917 that forced key Bolsheviks such as Lenin to go into hiding does this photo below portray?</p>\n<p><img src\="@@PLUGINFILE@@/19170704%20Riot%20on%20Nevsky%20prosp%20Petrograd.jpg" width\="461" height\="306" alt\="Wikimedia Riot on Nevsky" /></p>{
+	~<p>The February revolution</p>
+	=<p>The July Days</p>
+	~<p>The Komilov coup</p>
+	~<p>The June offensive</p>
+}
+
+
+// question: 613  name: mcr
+::mcr::[html]<p>The peace treaty signed between Russia and Germany that ended the First World War was signed where?</p>{
+	=<p>Odessa</p>
+	~<p>Warsaw</p>
+	~<p>Brest-Litovsk</p>
+	~<p>Vladivostok</p>
+}
+
+
+// question: 611  name: sa
+::sa::[html]<p>In which month of 1917 did Lenin finally return to Russia? Write your answer as a word, for example <em>November</em>. (November is not the right answer by the way!)</p>{
+	=%100%April#
+}
+
+
+// question: 614  name: tf
+::tf::[html]<p>The period after the February Revolution was known as dual power.</p>{TRUE#<p>Wrong. Please go back and read your notes.</p>#<p>Correct. Well remembered.</p>}
+
+

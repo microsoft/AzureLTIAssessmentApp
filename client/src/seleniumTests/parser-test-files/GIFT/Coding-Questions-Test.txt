@@ -1,0 +1,204 @@
+// question: 0  name: Switch category to $course$/top/General Java T//F
+$CATEGORY: $course$/top/General Java T//F
+
+
+// question: 38231  name: A class declare
+::A class declare::[html]A class declared as final cannot have subclasses.{TRUE}
+
+
+// question: 38234  name: A method can be
+::A method can be::[html]A method can be declared outside a class.{FALSE}
+
+
+// question: 38255  name: A method can re
+::A method can re::[html]A method can return 2 values at once using using a statement like return a,b;{FALSE}
+
+
+// question: 38254  name: A method parame
+::A method parame::[html]A method parameter of a primitive type is always initialised with a copy of the value passed in the method call.{TRUE}
+
+
+// question: 38247  name: A NullPointerEx
+::A NullPointerEx::[html]A NullPointerException is caused by calling a method on a null reference.{TRUE}
+
+
+// question: 38232  name: A static method
+::A static method::[html]A static method can access instance variables.{FALSE}
+
+
+// question: 38233  name: A static method
+::A static method::[html]A static method has an automatically declared variable called this.{FALSE}
+
+
+// question: 38239  name: A static method
+::A static method::[html]A static method can be overloaded.{FALSE}
+
+
+// question: 38267  name: A super call to
+::A super call to::[html]A super call to a superclass constructor can be put at any position in a subclass constructor.{FALSE}
+
+
+// question: 38268  name: A template meth
+::A template meth::[html]A template method can be declared final.{TRUE}
+
+
+// question: 38262  name: A use case desc
+::A use case desc::[html]A use case describes a <span style\="font-style\: italic;">task</span> that an <span style\="font-style\: italic;">actor</span> can perform when using an application.{TRUE}
+
+
+// question: 38245  name: A variable of c
+::A variable of c::[html]A variable of class type holds an object.{FALSE}
+
+
+// question: 38251  name: A variable of t
+::A variable of t::[html]A variable of type Object can reference any kind of object.{TRUE}
+
+
+// question: 38230  name: All methods in 
+::All methods in ::[html]<span style\="font-style\: italic;">All</span> methods in an abstract class must be declared as abstract.{FALSE}
+
+
+// question: 38258  name: An instance var
+::An instance var::[html]An instance variable can only be of a primitive type.{FALSE}
+
+
+// question: 38246  name: An object can b
+::An object can b::[html]An object can be referenced by only one variable at any time.{FALSE}
+
+
+// question: 38249  name: An object refer
+::An object refer::[html]An object reference cannot be copied.{FALSE}
+
+
+// question: 38266  name: An uncaught exc
+::An uncaught exc::[html]An uncaught exception will be propagated all the way back to the main method.{TRUE}
+
+
+// question: 38250  name: Arrays are repr
+::Arrays are repr::[html]Arrays are represented by objects.{TRUE}
+
+
+// question: 38259  name: Both throw and 
+::Both throw and ::[html]Both throw and throws are Java keywords.{TRUE}
+
+
+// question: 38252  name: Character is a 
+::Character is a ::[html]Character is a primitive type.{FALSE}
+
+
+// question: 38264  name: Class Throw is 
+::Class Throw is ::[html]Class Throw is the superclass of all exception classes.{FALSE}
+
+
+// question: 38229  name: Classes 1
+::Classes 1::[html]<pre> class MyClass</pre><pre>\{</pre><pre>   public void MyClass()</pre><pre>   \{</pre><pre>   \}</pre><pre> // etc.</pre><pre>\}</pre>The method shown is a constructor method.<br>{FALSE}
+
+
+// question: 38244  name: Declaring a cla
+::Declaring a cla::[html]Declaring a class also declares a new type.{TRUE}
+
+
+// question: 38219  name: GeneralTF 1
+::GeneralTF 1::[html]Java is a declarative object-oriented programming language.{FALSE}
+
+
+// question: 38228  name: GeneralTF 10
+::GeneralTF 10::[html]Statements are contained inside expressions.<br /><br />{FALSE}
+
+
+// question: 38220  name: GeneralTF 2
+::GeneralTF 2::[html]A well-written method should be cohesive.{TRUE}
+
+
+// question: 38221  name: GeneralTF 3
+::GeneralTF 3::[html]Arrays in Java are represented by objects.{TRUE}
+
+
+// question: 38222  name: GeneralTF 4
+::GeneralTF 4::[html]goto is a Java keyword.{FALSE}
+
+
+// question: 38224  name: GeneralTF 5
+::GeneralTF 5::[html]break is a Java keyword{TRUE}
+
+
+// question: 38223  name: GeneralTF 6
+::GeneralTF 6::[html]repeat is a Java keyword.{FALSE}
+
+
+// question: 38225  name: GeneralTF 7
+::GeneralTF 7::[html]Instance variables are declared in class scope.{TRUE}
+
+
+// question: 38226  name: GeneralTF 8
+::GeneralTF 8::[html]A statement is made up of one or more expressions.{TRUE}
+
+
+// question: 38227  name: GeneralTF 9
+::GeneralTF 9::[html]A static method must be called on an object.{FALSE}
+
+
+// question: 38253  name: Integer n = 1;i
+::Integer n \= 1;i::[html]Integer n \= 1;<br />is a valid statement.<br />{TRUE}
+
+
+// question: 38265  name: Is this a valid
+::Is this a valid::[html]Is this a valid catch declaration?<br /><br />catch (Exception e, IllegalNumberFormat f \{ // Not shown \}<br />{FALSE}
+
+
+// question: 38263  name: Is this valid J
+::Is this valid J::[html]Is this valid Java code?<br /><br /> private static Stack x; <br /> \{ x \= new Stack(); x.push(1); x.push(2);\}{FALSE}
+
+
+// question: 38240  name: Private methods
+::Private methods::[html]Private methods cannot be overloaded.{FALSE}
+
+
+// question: 38256  name: Return-by-value
+::Return-by-value::[html]Return-by-value is used when returning a value from a method.{TRUE}
+
+
+// question: 38257  name: The lifetime of
+::The lifetime of::[html]The lifetime of a variable is distinct from the lifetime of an object.{TRUE}
+
+
+// question: 38248  name: The scope of a 
+::The scope of a ::[html]The scope of a parameter variable is the class it is declared in.{FALSE}
+
+
+// question: 38242  name: The symbols /* 
+::The symbols /* ::[html]The symbols /* and */ are used to bracket a multi-line comment.{TRUE}
+
+
+// question: 38241  name: The symbols /**
+::The symbols /**::[html]The symbols /** and **/ are used to bracket a documentation comment.{FALSE}
+
+
+// question: 38235  name: This code will 
+::This code will ::[html]This code will compile without error\:<br /><br /><pre>int i\=0;\nif(i) \{\n System.out.println(&quot;Hello&quot;);\n\}</pre><br />{FALSE}
+
+
+// question: 38236  name: This code will 
+::This code will ::[html]This code will compile without error\:<br /><pre>boolean b\=true;\nboolean b2\=true;\nif(b\=\=b2) \{\n System.out.println(&quot;So true&quot;);\n\}</pre><br />{TRUE}
+
+
+// question: 38237  name: This code will 
+::This code will ::[html]This code will compile without error\:<br /><pre>int i\=1;\nint j\=2;\nif(i\=\=1 || j\=\=2)\n System.out.println(&quot;OK&quot;);</pre> <br />{TRUE}
+
+
+// question: 38238  name: This code will 
+::This code will ::[html]This code will compile without error\:<br /><pre>int i\=1;\nint j\=2;\nif(i\=\=1 and j\=\=2)\n System.out.println(&quot;OK&quot;);</pre><br />{FALSE}
+
+
+// question: 38243  name: True or false: 
+::True or false\: ::[html]True or false\: &quot;Encapsulation is a technique for maximising interdependencies among separately written modules by defining strict external interfaces.&quot;{FALSE}
+
+
+// question: 38261  name: Validation is a
+::Validation is a::[html]Validation is about testing an application works.{FALSE}
+
+
+// question: 38260  name: Verification is
+::Verification is::[html]Verification is about testing an application works.{TRUE}
+
+
