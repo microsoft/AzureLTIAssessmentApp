@@ -1,0 +1,68 @@
+// question: 0  name: Switch category to $course$/top/Default for pls work
+$CATEGORY: All Question Types Moodle Export
+
+// question: 8  name: Sample Calculated Question
+
+
+// question: 9  name: Sample Calculated Multiple Choice Question
+
+
+// question: 10  name: Sample Simple Calculated Question
+
+
+// question: 12  name: Sample drag and drop markers question
+
+
+// question: 11  name: Sample Drag and Drop
+
+
+// question: 7  name: Sample Essay Question
+::Sample Essay Question::[html]<p dir\="ltr" style\="text-align\: left;">This is an essay question, which must be graded manually.&nbsp;</p>{}
+
+
+// question: 13  name: Select missing words Question
+
+
+// question: 5  name: Sample Matching Question
+::Sample Matching Question::[html]<p dir\="ltr" style\="text-align\: left;">Please match the following</p>{
+	=Red coloured vegetable -> Radish
+	=<p dir\="ltr" style\="text-align\: left;">Green coloured vegetable</p> -> Spinach
+	=<p dir\="ltr" style\="text-align\: left;">Orange coloured vegetable</p> -> Carrots
+}
+
+
+// question: 1  name: Sample Multiple Answer Question
+::Sample Multiple Answer Question::[html]<p dir\="ltr" style\="text-align\: left;">How many seasons of Game of Thrones exist?</p>{
+	~%50%<p dir\="ltr" style\="text-align\: left;">This answer is correct!</p>#<p dir\="ltr" style\="text-align\: left;">This should be correct&nbsp;</p>
+	~<p dir\="ltr" style\="text-align\: left;">This answwer is wrong</p>#<p dir\="ltr" style\="text-align\: left;">This should be wrong</p>
+	~%50%<p dir\="ltr" style\="text-align\: left;">This answer is also correct</p>#<p dir\="ltr" style\="text-align\: left;">This is also correct</p>
+	####<p dir\="ltr" style\="text-align\: left;">Looks good&nbsp;</p>
+}
+
+
+// question: 4  name: Sample Multiple Choice Question - One correct answer
+::Sample Multiple Choice Question - One correct answer::[html]Which country has the largest human population?{
+	=<p dir\="ltr" style\="text-align\: left;">China</p>
+	~<p dir\="ltr" style\="text-align\: left;">India</p>
+	~<p dir\="ltr" style\="text-align\: left;">United States of America</p>
+	~<p dir\="ltr" style\="text-align\: left;">Brazil</p>
+}
+
+
+// question: 6  name: Sample Numerical Question
+::Sample Numerical Question::[html]<p dir\="ltr" style\="text-align\: left;">What is 5 + 5</p>{#
+	=%100%10:0#
+}
+
+
+// question: 3  name: Sample Short Answer - 1 correct answer
+::Sample Short Answer - 1 correct answer::[html]<p dir\="ltr" style\="text-align\: left;">What is the capital of United Kingdom</p>{
+	=%100%London#<p dir\="ltr" style\="text-align\: left;">You got this!</p>
+	####<p dir\="ltr" style\="text-align\: left;">You got it right! Well done</p>
+}
+
+
+// question: 2  name: Sample True-False Question
+::Sample True-False Question::[html]UCL is not situated in the heart of London{FALSE#<p dir\="ltr" style\="text-align\: left;">Yay you did it!</p>#<p dir\="ltr" style\="text-align\: left;">Try again next time!</p>####<p dir\="ltr" style\="text-align\: left;">You got this!</p>}
+
+

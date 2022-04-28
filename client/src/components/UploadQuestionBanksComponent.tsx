@@ -100,10 +100,10 @@ export const UploadQuestionBanksComponent = (
 
     const dropdownRef = React.createRef<IDropdown>();
     const uploadOptions = [
-        { key: 'A', text: 'Assessment App JSON'},
-        { key: 'B', text: 'Microsoft Open Source Curriculum JSON ' },
-        { key: 'C', text: 'GIFT Export'},
-        { key: 'D', text: 'QTI Export' },
+        { key: 'A', text: 'Assessment App JSON', id:"Assessment App Json"},
+        { key: 'B', text: 'Microsoft Open Source Curriculum JSON ', id:"Microsoft Open Source Curriculum JSON" },
+        { key: 'C', text: 'GIFT Export', id:"GIFT Export"},
+        { key: 'D', text: 'QTI Export', id:"QTI Export" },
     ];
 
     return(
@@ -116,6 +116,7 @@ export const UploadQuestionBanksComponent = (
              <Dropdown
                 placeholder="Choose import format"
                 ariaLabel="Required dropdown example"
+                id="upload format"
                 options={uploadOptions}
                 required={true}
                 styles={dropdownStyles}
@@ -131,7 +132,7 @@ export const UploadQuestionBanksComponent = (
                 {inProgress && <Spinner
                     label="Uploading..."
                 />}
-                <PrimaryButton text="Upload" disabled={selectedFile === null} onClick={doUpload}/>
+                <PrimaryButton id = "final-upload" text="Upload" disabled={selectedFile === null} onClick={doUpload} className="Upload"/>
                 <DefaultButton text="Cancel" onClick={() => onFinish(false)}/>
             </DialogFooter>
         </Dialog>
