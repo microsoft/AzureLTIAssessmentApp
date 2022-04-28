@@ -38,7 +38,7 @@ export const EditQuestionComponent = (
     const createOptions = (): ICheckboxProps[] => {
         const createOneOption = (optionId: number): ICheckboxProps => {
             return {
-                id: optionId.toString(),
+                id: `check-box-${optionId.toString()}`,
                 onRenderLabel: (props, render) => {
                     return (
                         <div className={optionRootClass}>
@@ -107,7 +107,7 @@ export const EditQuestionComponent = (
                 <Label style={{ textAlign: "left" }}>Options</Label>
             </Col>
             <Col md={6}>
-                {createOptions().map((value:ICheckboxProps , index: number) =>  <Checkbox {...value}/>)}
+                {createOptions().map((value:ICheckboxProps , index: number) =>  <Checkbox {...value} id={'checkbox'+ index.toString()}/>)}
             </Col>
         </Row><br /><Row>
                 <Col md={2} />
@@ -129,7 +129,8 @@ export const EditQuestionComponent = (
             </Col>
             <Col md={6}>
                 <ChoiceGroup
-                    options={[{key:'0', text:'True'}, {key:'1', text:'False'}]}
+                    id={"tf"}
+                    options={[{key:'0', text:'True'}, { key:'1', text:'False'}]}
                     required={true}
                     selectedKey={`${question.answer}`} 
                     onChange={updateCorrectAnswer}/>
@@ -221,15 +222,16 @@ export const EditQuestionComponent = (
             </Row>
             <br/>
             <Row>
-                <Col md={2}>
+                {/* <Col md={2}>
                     <Label style={{textAlign: "left"}}>Question format</Label>
                 </Col>
                 <Col md = {6}>
                     <Dropdown 
+                        id="question-format"
                         defaultSelectedKey={question.textType}
                         options={[{text:"Text", key: 'text'}, {text:"HTML", key:'html'}]}  
                         onChange={(_, key)=> setQuestion({...question, textType:key?.key})} />
-                </Col>
+                </Col> */}
             </Row>
             <br/>
             <Row>
@@ -238,8 +240,9 @@ export const EditQuestionComponent = (
                 </Col>
                 <Col md={6}>
                 <Dropdown 
+                        id="question-type-drop-down"
                         defaultSelectedKey={question.questionType}
-                        options={[{text:"Multiple Choice", key: 'MCQ'}, {text:"True/False", key:'TF'}, {text:"Question/Answer", key:'QA'}]}  
+                        options={[{text:"Multiple Choice", key: 'MCQ', id:"1"}, {text:"True/False", key:'TF', id:"2"}, {text:"Question/Answer", key:'QA', id:"3"}]}  
                         onChange={(_, key)=> setQuestion({...question, questionType: key?.key.toString() || '', answer:[], options:[]})} />
                 </Col>
             </Row>

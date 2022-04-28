@@ -275,6 +275,7 @@ export const HomePage = () => {
         {
             key: 'upload',
             text: 'Upload',
+            className: 'upload-button',
             iconProps: { iconName: 'Upload' },
             onClick: () => {
                 setShowUploadSuccessMsg(false);
@@ -321,6 +322,7 @@ export const HomePage = () => {
                     messageBarType={MessageBarType.success}
                     onDismiss={() => setShowUploadSuccessMsg(false)}
                     isMultiline={false}
+                    className="successMsg"
                 >
                     Question Banks were uploaded successfully!
                 </MessageBar>}
