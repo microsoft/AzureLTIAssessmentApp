@@ -24,12 +24,12 @@
         <PackageReference Include="Microsoft.Identity.Web" Version="1.16.0" />
         <PackageReference Include="Microsoft.IdentityModel.KeyVaultExtensions" Version="6.5.1" />
         <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.12.1" />
-        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.12.1" />
+        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.34.0" />
         <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.11" />
         <PackageReference Include="System.Collections.NonGeneric" Version="4.3.0" />
         <PackageReference Include="System.Collections.Specialized" Version="4.3.0" />
         <PackageReference Include="System.ComponentModel.Annotations" Version="6.0.0-preview.4.21253.7" />
-        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.1" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.34.0" />
         <PackageReference Include="System.Security.Claims" Version="4.3.0" />
         <PackageReference Include="System.Text.Json" Version="6.0.0-preview.6.21352.12" />
     </ItemGroup>
