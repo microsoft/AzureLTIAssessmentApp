@@ -11,9 +11,9 @@
     "@types/node": "^16.9.0",
     "@types/react": "^17.0.20",
     "@types/react-dom": "^17.0.9",
-    "axios": "^0.21.4",
+    "axios": "^0.28.0",
     "d3": "^7.0.1",
-    "fast-xml-parser": "^4.0.1",
+    "fast-xml-parser": "^4.4.1",
     "file-saver": "^2.0.5",
     "gift-pegjs": "^0.2.1",
     "html-react-parser": "^1.4.6",
@@ -30,7 +30,7 @@
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
-    "@azure/static-web-apps-cli": "^0.8.1",
+    "@azure/static-web-apps-cli": "^2.0.1",
     "@testing-library/dom": "^8.3.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",

@@ -15,7 +15,7 @@
       <PackageReference Include="LtiAdvantage" Version="0.1.1-alpha.0" />
       <PackageReference Include="LtiAdvantage.IdentityModel" Version="0.1.1-alpha.0" />
       <PackageReference Include="Microsoft.Extensions.Http" Version="2.2.0" />
-      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.1" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.34.0" />
     </ItemGroup>
 
 </Project>
